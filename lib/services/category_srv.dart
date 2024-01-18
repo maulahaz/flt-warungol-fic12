@@ -8,7 +8,7 @@ class CategoryServices {
   //--Get Data Category:
   // ========================================================================
   static Future<Either<String, CategoryModel>> getCategories() async {
-    var url = Uri.parse(BASE_URL + 'api/category_api');
+    var url = Uri.parse(BASE_URL + '/api/category_api');
     var response = await http.get(
       url,
       headers: {'Content-Type': 'application/json'},

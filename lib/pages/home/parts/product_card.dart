@@ -1,5 +1,7 @@
+import 'package:flt_warungol_fic12/controllers/x_controllers.dart';
 import 'package:flt_warungol_fic12/helpers/x_helpers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
@@ -42,7 +44,9 @@ class ProductCard extends StatelessWidget {
                 ClipRRect(
                   borderRadius: BorderRadius.circular(5.0),
                   child: Image.network(
-                    BASE_URL + 'uploads/product/' + data.picture!,
+                    data.picture!.contains('http')
+                        ? data.picture!
+                        : BASE_URL_IMAGE + 'product/' + data.picture!,
                     width: 170.0,
                     height: 112.0,
                     fit: BoxFit.cover,
@@ -72,7 +76,9 @@ class ProductCard extends StatelessWidget {
             bottom: -5,
             right: 0,
             child: IconButton(
-              onPressed: () {},
+              onPressed: () {
+                context.read<CartBloc>().add(AddItem(data));
+              },
               icon: Container(
                 padding: const EdgeInsets.all(4.0),
                 decoration: BoxDecoration(

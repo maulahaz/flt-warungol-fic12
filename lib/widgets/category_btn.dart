@@ -1,3 +1,4 @@
+import 'package:flt_warungol_fic12/configs/x_configs.dart';
 import 'package:flutter/material.dart';
 
 class CategoryButton extends StatelessWidget {
@@ -22,7 +23,9 @@ class CategoryButton extends StatelessWidget {
         child: Column(
           children: [
             Image.network(
-              imagePath,
+              imagePath.contains('http')
+                  ? imagePath
+                  : BASE_URL_IMAGE + 'category/' + imagePath,
               width: 80.0,
               height: 70.0,
               fit: BoxFit.contain,

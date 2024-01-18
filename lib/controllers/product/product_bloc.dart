@@ -10,7 +10,7 @@ part 'product_state.dart';
 class ProductBloc extends Bloc<ProductEvent, ProductState> {
   ProductBloc() : super(ProductInitial()) {
     on<GetProducts>(_handleGetProducts);
-    on<GetBestSellerProduct>(_handleGetBestSellerProduct);
+    // on<GetBestSellerProduct>(_handleGetBestSellerProduct);
   }
 
   Future<void> _handleGetProducts(event, emit) async {
@@ -25,15 +25,15 @@ class ProductBloc extends Bloc<ProductEvent, ProductState> {
     });
   }
 
-  Future<void> _handleGetBestSellerProduct(event, emit) async {
-    emit(ProductLoading());
-    final response = await ProductServices.getProductByCategory(1);
-    response.fold((L) => emit(ProductError('Error during fetching data')), (R) {
-      if (R.data!.data!.isEmpty) {
-        emit(ProductInitial());
-      } else {
-        emit(ProductBestSellerLoaded(dataOutput: R.data!.data!));
-      }
-    });
-  }
+  // Future<void> _handleGetBestSellerProduct(event, emit) async {
+  //   emit(ProductLoading());
+  //   final response = await ProductServices.getProductByCategory(1);
+  //   response.fold((L) => emit(ProductError('Error during fetching data')), (R) {
+  //     if (R.data!.data!.isEmpty) {
+  //       emit(ProductInitial());
+  //     } else {
+  //       emit(ProductBestSellerLoaded(dataOutput: R.data!.data!));
+  //     }
+  //   });
+  // }
 }

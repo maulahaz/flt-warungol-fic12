@@ -1,9 +1,10 @@
-import 'package:flt_warungol_fic12/controllers/product/product_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:badges/badges.dart' as badges;
 
+import '../../configs/x_configs.dart';
 import '../../controllers/x_controllers.dart';
 import '../../widgets/x_widgets.dart';
 import 'x_homes.dart';
@@ -30,7 +31,8 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     searchController = TextEditingController();
     context.read<ProductBloc>().add(GetProducts());
-    context.read<ProductBloc>().add(GetBestSellerProduct());
+    context.read<BestsellerProductBloc>().add(GetBestsellerProduct());
+    context.read<TopratedProductBloc>().add(GetTopratedProduct());
     super.initState();
   }
 
@@ -46,22 +48,52 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text('MHz Store'),
         actions: [
+          BlocBuilder<CartBloc, CartState>(
+            builder: (context, state) {
+              if (state is AddItemLoadedState) {
+                final totalQty = state.dataOutput.fold<int>(
+                    0, (previousValue, element) => previousValue + element.qty);
+
+                return totalQty > 0
+                    ? badges.Badge(
+                        badgeContent: Text(
+                          totalQty.toString(),
+                          style: TextStyle(color: kWhite),
+                        ),
+                        child: IconButton(
+                          onPressed: () {
+                            context.goNamed(
+                              'cart',
+                              // pathParameters: PathParameters().toMap(),
+                            );
+                          },
+                          icon: SvgPicture.asset(
+                            'lib/assets/icons/cart.svg',
+                            height: 24,
+                          ),
+                        ),
+                      )
+                    : IconButton(
+                        onPressed: () {
+                          context.goNamed(
+                            'cart',
+                            // pathParameters: PathParameters().toMap(),
+                          );
+                        },
+                        icon: SvgPicture.asset(
+                          'lib/assets/icons/cart.svg',
+                          height: 24,
+                        ),
+                      );
+              } else {
+                return Container();
+              }
+            },
+          ),
           IconButton(
             onPressed: () {},
             icon: SvgPicture.asset(
               'lib/assets/icons/notification.svg',
-              height: 24,
-            ),
-          ),
-          IconButton(
-            onPressed: () {
-              context.goNamed(
-                'cart',
-                // pathParameters: PathParameters().toMap(),
-              );
-            },
-            icon: SvgPicture.asset(
-              'lib/assets/icons/cart.svg',
               height: 24,
             ),
           ),
@@ -117,11 +149,11 @@ class _HomePageState extends State<HomePage> {
           // SizedBox(height: 50),
           // BannerSlider(items: banners2),
           SizedBox(height: 28),
-          BlocBuilder<ProductBloc, ProductState>(
+          BlocBuilder<BestsellerProductBloc, BestsellerProductState>(
             builder: (context, state) {
-              if (state is ProductLoading) {
+              if (state is BestsellerLoadingState) {
                 return CircularProgressIndicator();
-              } else if (state is ProductBestSellerLoaded) {
+              } else if (state is BestsellerLoadedState) {
                 return ProductList(
                   title: 'Best Sellers',
                   onSeeAllTap: () {},
@@ -129,7 +161,7 @@ class _HomePageState extends State<HomePage> {
                       ? state.dataOutput.sublist(0, 2)
                       : state.dataOutput,
                 );
-              } else if (state is ProductError) {
+              } else if (state is BestsellerErrorState) {
                 return Center(
                   child: Text(state.error!),
                 );
@@ -146,12 +178,30 @@ class _HomePageState extends State<HomePage> {
           //   onSeeAllTap: () {},
           //   items: newArrivals,
           // ),
-          // SizedBox(height: 50),
-          // ProductList(
-          //   title: 'Top Rated Product',
-          //   onSeeAllTap: () {},
-          //   items: topRatedProducts,
-          // ),
+          SizedBox(height: 50),
+          BlocBuilder<TopratedProductBloc, TopratedProductState>(
+            builder: (context, state) {
+              if (state is TopratedLoadingState) {
+                return CircularProgressIndicator();
+              } else if (state is TopratedLoadedState) {
+                return ProductList(
+                  title: 'Top Rated Product',
+                  onSeeAllTap: () {},
+                  items: state.dataOutput.length > 2
+                      ? state.dataOutput.sublist(0, 2)
+                      : state.dataOutput,
+                );
+              } else if (state is TopratedErrorState) {
+                return Center(
+                  child: Text(state.error!),
+                );
+              } else {
+                return Center(
+                  child: Text('Uppss..something is wrong'),
+                );
+              }
+            },
+          ),
           // SizedBox(height: 50),
           // ProductList(
           //   title: 'Special Offers',

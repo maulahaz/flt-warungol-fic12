@@ -18,12 +18,11 @@ class MyApp extends StatelessWidget {
     final router = appRouter.router;
     return MultiBlocProvider(
       providers: [
-        BlocProvider(
-          create: (context) => CategoryBloc(),
-        ),
-        BlocProvider(
-          create: (context) => ProductBloc(),
-        ),
+        BlocProvider(create: (context) => CategoryBloc()),
+        BlocProvider(create: (context) => ProductBloc()),
+        BlocProvider(create: (context) => BestsellerProductBloc()),
+        BlocProvider(create: (context) => TopratedProductBloc()),
+        BlocProvider(create: (context) => CartBloc()),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

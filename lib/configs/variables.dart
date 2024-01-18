@@ -11,7 +11,7 @@ const String WA_ADMIN = '971562681844';
 const String APP_VERSI = '2.2111.6';
 
 //--SERVICES:
-const String BASE_URL = "http://10.0.2.2:8000/"; // Emulator-Laravel-Localhost
+const String BASE_URL = "http://10.0.2.2:8000"; // Emulator-Laravel-Localhost
 // const String BASE_URL = "https://fic10.flutterdev.my.id/api/"; //--Real Web
 // const String BASE_URL = 'http://10.0.2.2/ci4-kinclong/api/'; // Emulator
 // const String BASE_URL = "http://10.0.2.2/tron-siode/"; // Emulator
@@ -19,6 +19,7 @@ const String BASE_URL = "http://10.0.2.2:8000/"; // Emulator-Laravel-Localhost
 // const String BASE_URL = 'http://192.168.0.181/trg-kamsya/'; // Emulator with Real Device or Website
 const String API_URL_1 =
     "https://fakestoreapi.com/"; // Free API: 2. 'fakestoreapi'
+const String BASE_URL_IMAGE = BASE_URL + "/uploads/";
 
 //--SIZES:: Padding:
 // --------------------------------------------------

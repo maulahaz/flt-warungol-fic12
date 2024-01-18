@@ -8,7 +8,7 @@ class ProductServices {
   //--Get Data Product:
   // ========================================================================
   static Future<Either<String, ProductRemoteModel>> getProducts() async {
-    var url = Uri.parse(BASE_URL + 'api/product');
+    var url = Uri.parse(BASE_URL + '/api/product');
     var response = await http.get(
       url,
       headers: {'Content-Type': 'application/json'},
@@ -29,7 +29,7 @@ class ProductServices {
   // ========================================================================
   static Future<Either<String, ProductRemoteModel>> getProductByCategory(
       int categoryId) async {
-    var url = Uri.parse(BASE_URL + 'api/product?categoryId=$categoryId');
+    var url = Uri.parse(BASE_URL + '/api/product?categoryId=$categoryId');
     var response = await http.get(
       url,
       headers: {'Content-Type': 'application/json'},
