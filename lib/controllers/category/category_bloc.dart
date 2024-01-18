@@ -9,10 +9,10 @@ part 'category_state.dart';
 
 class CategoryBloc extends Bloc<CategoryEvent, CategoryState> {
   CategoryBloc() : super(CategoryInitial()) {
-    on<GetCategories>(_getCategories);
+    on<GetCategories>(_handleGetCategories);
   }
 
-  Future<void> _getCategories(event, emit) async {
+  Future<void> _handleGetCategories(event, emit) async {
     emit(CategoryLoading());
     final response = await CategoryServices.getCategories();
     response.fold((L) => emit(CategoryError('Error during fetching data')),

@@ -1,8 +1,10 @@
+import 'package:flt_warungol_fic12/controllers/product/product_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
-import '../../models/x_models.dart';
+import '../../controllers/x_controllers.dart';
 import '../../widgets/x_widgets.dart';
 import 'x_homes.dart';
 
@@ -15,186 +17,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late TextEditingController searchController;
-  final List<ProductModel> featuredProducts = [
-    ProductModel(
-      images: [
-        'lib/assets/images/products/lampu.png',
-        'lib/assets/images/products/lampu.png',
-        'lib/assets/images/products/lampu.png',
-      ],
-      name: 'Lampu',
-      price: 90000,
-      stock: 20,
-      description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
-      store: StoreModel(
-        name: 'CWB Online Store',
-        type: StoreEnum.officialStore,
-        imageUrl: 'https://avatars.githubusercontent.com/u/534678?v=4',
-      ),
-    ),
-    ProductModel(
-      images: [
-        'lib/assets/images/products/earphone.png',
-        'lib/assets/images/products/earphone.png',
-        'lib/assets/images/products/earphone.png',
-      ],
-      name: 'Earphone',
-      price: 320000,
-      stock: 20,
-      description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
-      store: StoreModel(
-        name: 'CWB Online Store',
-        type: StoreEnum.officialStore,
-        imageUrl: 'https://avatars.githubusercontent.com/u/534678?v=4',
-      ),
-    ),
-  ];
-  final List<ProductModel> bestSellers = [
-    ProductModel(
-      images: [
-        'lib/assets/images/products/keyboard.png',
-        'lib/assets/images/products/keyboard.png',
-        'lib/assets/images/products/keyboard.png',
-      ],
-      name: 'Keyboard Mechanical',
-      price: 320000,
-      stock: 20,
-      description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
-      store: StoreModel(
-        name: 'CWB Online Store',
-        type: StoreEnum.officialStore,
-        imageUrl: 'https://avatars.githubusercontent.com/u/534678?v=4',
-      ),
-    ),
-    ProductModel(
-      images: [
-        'lib/assets/images/products/mac.png',
-        'lib/assets/images/products/mac.png',
-        'lib/assets/images/products/mac.png',
-      ],
-      name: 'Earphone',
-      price: 320000,
-      stock: 20,
-      description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
-      store: StoreModel(
-        name: 'CWB Online Store',
-        type: StoreEnum.officialStore,
-        imageUrl: 'https://avatars.githubusercontent.com/u/534678?v=4',
-      ),
-    ),
-  ];
-  final List<ProductModel> newArrivals = [
-    ProductModel(
-      images: [
-        'lib/assets/images/products/sepatu.png',
-        'lib/assets/images/products/sepatu.png',
-        'lib/assets/images/products/sepatu.png',
-      ],
-      name: 'Sepatu Nike',
-      price: 2200000,
-      stock: 20,
-      description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
-      store: StoreModel(
-        name: 'CWB Online Store',
-        type: StoreEnum.officialStore,
-        imageUrl: 'https://avatars.githubusercontent.com/u/534678?v=4',
-      ),
-    ),
-    ProductModel(
-      images: [
-        'lib/assets/images/products/sepatu2.png',
-        'lib/assets/images/products/sepatu2.png',
-        'lib/assets/images/products/sepatu2.png',
-      ],
-      name: 'Sepatu Nike',
-      price: 2200000,
-      stock: 20,
-      description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
-      store: StoreModel(
-        name: 'CWB Online Store',
-        type: StoreEnum.officialStore,
-        imageUrl: 'https://avatars.githubusercontent.com/u/534678?v=4',
-      ),
-    ),
-  ];
-  final List<ProductModel> topRatedProducts = [
-    ProductModel(
-      images: [
-        'lib/assets/images/products/mac2.png',
-        'lib/assets/images/products/mac2.png',
-        'lib/assets/images/products/mac2.png',
-      ],
-      name: 'Macbook',
-      price: 12220000,
-      stock: 20,
-      description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
-      store: StoreModel(
-        name: 'CWB Online Store',
-        type: StoreEnum.officialStore,
-        imageUrl: 'https://avatars.githubusercontent.com/u/534678?v=4',
-      ),
-    ),
-    ProductModel(
-      images: [
-        'lib/assets/images/products/mac.png',
-        'lib/assets/images/products/mac.png',
-        'lib/assets/images/products/mac.png',
-      ],
-      name: 'Macbook',
-      price: 12220000,
-      stock: 20,
-      description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
-      store: StoreModel(
-        name: 'CWB Online Store',
-        type: StoreEnum.officialStore,
-        imageUrl: 'https://avatars.githubusercontent.com/u/534678?v=4',
-      ),
-    ),
-  ];
-  final List<ProductModel> specialOffers = [
-    ProductModel(
-      images: [
-        'lib/assets/images/products/lampu.png',
-        'lib/assets/images/products/lampu.png',
-        'lib/assets/images/products/lampu.png',
-      ],
-      name: 'Macbook',
-      price: 12220000,
-      stock: 20,
-      description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
-      store: StoreModel(
-        name: 'CWB Online Store',
-        type: StoreEnum.officialStore,
-        imageUrl: 'https://avatars.githubusercontent.com/u/534678?v=4',
-      ),
-    ),
-    ProductModel(
-      images: [
-        'lib/assets/images/products/keyboard.png',
-        'lib/assets/images/products/keyboard.png',
-        'lib/assets/images/products/keyboard.png',
-      ],
-      name: 'Macbook',
-      price: 12220000,
-      stock: 20,
-      description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. ',
-      store: StoreModel(
-        name: 'CWB Online Store',
-        type: StoreEnum.officialStore,
-        imageUrl: 'https://avatars.githubusercontent.com/u/534678?v=4',
-      ),
-    ),
-  ];
   final List<String> banners1 = [
     'lib/assets/images/banner1.png',
     'lib/assets/images/banner1.png',
@@ -207,6 +29,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     searchController = TextEditingController();
+    context.read<ProductBloc>().add(GetProducts());
+    context.read<ProductBloc>().add(GetBestSellerProduct());
     super.initState();
   }
 
@@ -267,37 +91,73 @@ class _HomePageState extends State<HomePage> {
           SizedBox(height: 12),
           const MenuCategories(),
           SizedBox(height: 50),
-          ProductList(
-            title: 'Featured Product',
-            onSeeAllTap: () {},
-            items: featuredProducts,
+          BlocBuilder<ProductBloc, ProductState>(
+            builder: (context, state) {
+              if (state is ProductLoading) {
+                return CircularProgressIndicator();
+              } else if (state is ProductsLoaded) {
+                return ProductList(
+                  title: 'Featured Product',
+                  onSeeAllTap: () {},
+                  items: state.dataOutput.length > 2
+                      ? state.dataOutput.sublist(0, 2)
+                      : state.dataOutput,
+                );
+              } else if (state is ProductError) {
+                return Center(
+                  child: Text(state.error!),
+                );
+              } else {
+                return Center(
+                  child: Text('Uppss..something is wrong'),
+                );
+              }
+            },
           ),
-          SizedBox(height: 50),
-          BannerSlider(items: banners2),
+          // SizedBox(height: 50),
+          // BannerSlider(items: banners2),
           SizedBox(height: 28),
-          ProductList(
-            title: 'Best Sellers',
-            onSeeAllTap: () {},
-            items: bestSellers,
+          BlocBuilder<ProductBloc, ProductState>(
+            builder: (context, state) {
+              if (state is ProductLoading) {
+                return CircularProgressIndicator();
+              } else if (state is ProductBestSellerLoaded) {
+                return ProductList(
+                  title: 'Best Sellers',
+                  onSeeAllTap: () {},
+                  items: state.dataOutput.length > 2
+                      ? state.dataOutput.sublist(0, 2)
+                      : state.dataOutput,
+                );
+              } else if (state is ProductError) {
+                return Center(
+                  child: Text(state.error!),
+                );
+              } else {
+                return Center(
+                  child: Text('Uppss..something is wrong'),
+                );
+              }
+            },
           ),
-          SizedBox(height: 50),
-          ProductList(
-            title: 'New Arrivals',
-            onSeeAllTap: () {},
-            items: newArrivals,
-          ),
-          SizedBox(height: 50),
-          ProductList(
-            title: 'Top Rated Product',
-            onSeeAllTap: () {},
-            items: topRatedProducts,
-          ),
-          SizedBox(height: 50),
-          ProductList(
-            title: 'Special Offers',
-            onSeeAllTap: () {},
-            items: specialOffers,
-          ),
+          // SizedBox(height: 50),
+          // ProductList(
+          //   title: 'New Arrivals',
+          //   onSeeAllTap: () {},
+          //   items: newArrivals,
+          // ),
+          // SizedBox(height: 50),
+          // ProductList(
+          //   title: 'Top Rated Product',
+          //   onSeeAllTap: () {},
+          //   items: topRatedProducts,
+          // ),
+          // SizedBox(height: 50),
+          // ProductList(
+          //   title: 'Special Offers',
+          //   onSeeAllTap: () {},
+          //   items: specialOffers,
+          // ),
         ],
       ),
     );

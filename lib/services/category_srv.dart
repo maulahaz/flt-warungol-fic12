@@ -8,14 +8,14 @@ class CategoryServices {
   //--Get Data Category:
   // ========================================================================
   static Future<Either<String, CategoryModel>> getCategories() async {
-    var url = Uri.parse(BASE_URL + 'category');
+    var url = Uri.parse(BASE_URL + 'api/category_api');
     var response = await http.get(
       url,
       headers: {'Content-Type': 'application/json'},
     );
-    print('==>getCategories ' + url.toString());
-    print(response.statusCode);
-    print(response.body);
+    // print('==>getCategories ' + url.toString());
+    // print(response.statusCode);
+    // print(response.body);
     // var examData = jsonDecode(response.body)['data'];
     // print(examData);
     if (response.statusCode == 200) {

@@ -14,8 +14,8 @@ A Task of FIC-12 event by Code With Bahri
             flutter_svg, step_progress_indicator, ...
 
 # References:
-<!-- - [Github: bahrie127/flutter_cbt_app](https://github.com/bahrie127/flutter_cbt_app) -->
-<!-- - [Github: bahrie127/laravel-cbt-backend](https://github.com/bahrie127/laravel-cbt-backend) -->
+<!-- - [GDrive: bahrie127/flutter Onlne Shop App](https://drive.google.com/drive/folders/XX1L88iEAIEhMAA5JMql_0BpQUlEDV0foja?usp=sharing) -->
+<!-- - [Github: bahrie127/laravel-onlineshop-backend](https://github.com/bahrie127/laravel-onlineshop-backend) -->
 - [Go Router](https://github.com/akmadan/go_router_tutorial)
 
 # Resource References:

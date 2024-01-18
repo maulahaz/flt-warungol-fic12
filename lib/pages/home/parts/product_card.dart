@@ -1,3 +1,4 @@
+import 'package:flt_warungol_fic12/helpers/x_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
@@ -6,7 +7,7 @@ import '../../../configs/x_configs.dart';
 import '../../../models/x_models.dart';
 
 class ProductCard extends StatelessWidget {
-  final ProductModel data;
+  final Product data;
   const ProductCard({super.key, required this.data});
 
   @override
@@ -22,7 +23,6 @@ class ProductCard extends StatelessWidget {
       child: Stack(
         children: [
           Container(
-            // height: 300,
             padding: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
               // color: Colors.yellow,
@@ -41,25 +41,24 @@ class ProductCard extends StatelessWidget {
               children: [
                 ClipRRect(
                   borderRadius: BorderRadius.circular(5.0),
-                  child: Image.asset(
-                    data.images.first,
+                  child: Image.network(
+                    BASE_URL + 'uploads/product/' + data.picture!,
                     width: 170.0,
                     height: 112.0,
                     fit: BoxFit.cover,
                   ),
                 ),
-                SizedBox(height: 14),
                 Flexible(
                   child: Text(
-                    data.name,
+                    data.name!,
                     style: const TextStyle(
-                      fontSize: 8,
+                      fontSize: 12,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
                 ),
                 Text(
-                  data.priceFormat,
+                  data.price!.currencyFormatRp,
                   style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.w600,

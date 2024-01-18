@@ -16,8 +16,15 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final appRouter = AppRouter();
     final router = appRouter.router;
-    return BlocProvider(
-      create: (context) => CategoryBloc(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => CategoryBloc(),
+        ),
+        BlocProvider(
+          create: (context) => ProductBloc(),
+        ),
+      ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
         theme: Themes.light,

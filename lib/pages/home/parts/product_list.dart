@@ -6,7 +6,7 @@ import '../x_homes.dart';
 class ProductList extends StatelessWidget {
   final String title;
   final VoidCallback onSeeAllTap;
-  final List<ProductModel> items;
+  final List<Product> items;
 
   const ProductList({
     super.key,
@@ -31,7 +31,7 @@ class ProductList extends StatelessWidget {
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 10.0,
-            mainAxisSpacing: 55.0,
+            mainAxisSpacing: 20.0,
           ),
           itemCount: items.length,
           itemBuilder: (context, index) => ProductCard(
