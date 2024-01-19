@@ -1,4 +1,5 @@
 import 'package:flt_warungol_fic12/configs/x_configs.dart';
+import 'package:flt_warungol_fic12/helpers/x_helpers.dart';
 import 'package:flutter/material.dart';
 
 class CategoryButton extends StatelessWidget {
@@ -33,8 +34,8 @@ class CategoryButton extends StatelessWidget {
             SizedBox(
               width: 70.0,
               child: Text(
-                label,
-                style: const TextStyle(),
+                label.capitalized(),
+                style: getFont(14, color: kAppSecondary),
                 textAlign: TextAlign.center,
               ),
             ),

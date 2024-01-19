@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../models/x_models.dart';
-import '../x_homes.dart';
+import '../../x_pages.dart';
 
 class ProductList extends StatelessWidget {
   final String title;
@@ -29,6 +29,7 @@ class ProductList extends StatelessWidget {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            childAspectRatio: (.9 / 1),
             crossAxisCount: 2,
             crossAxisSpacing: 10.0,
             mainAxisSpacing: 20.0,

@@ -19,7 +19,7 @@ class SearchInput extends StatelessWidget {
     return Container(
       height: 45.0,
       decoration: BoxDecoration(
-        color: kAppLight,
+        color: kAppPrimary,
         borderRadius: BorderRadius.circular(100.0),
       ),
       child: TextFormField(
@@ -31,7 +31,7 @@ class SearchInput extends StatelessWidget {
           hintText: 'Search',
           prefixIcon: const Icon(
             Icons.search,
-            color: kAppPrimary,
+            color: kAppInversePrimary,
           ),
           contentPadding: const EdgeInsets.all(10.0),
           border: OutlineInputBorder(

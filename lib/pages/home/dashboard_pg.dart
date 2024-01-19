@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../configs/x_configs.dart';
-import 'x_homes.dart';
+import '../x_pages.dart';
 
 class DashboardPage extends StatefulWidget {
   final int currentTab;
@@ -53,7 +53,7 @@ class _DashboardPageState extends State<DashboardPage> {
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         currentIndex: _selectedIndex,
-        selectedItemColor: kAppPrimary,
+        selectedItemColor: kAppInversePrimary,
         onTap: _onItemTapped,
         items: [
           BottomNavigationBarItem(
@@ -64,7 +64,11 @@ class _DashboardPageState extends State<DashboardPage> {
                 BlendMode.srcIn,
               ),
             ),
-            activeIcon: SvgPicture.asset('lib/assets/icons/home.svg'),
+            activeIcon: SvgPicture.asset('lib/assets/icons/home.svg',
+                colorFilter: const ColorFilter.mode(
+                  kAppInversePrimary,
+                  BlendMode.srcIn,
+                )),
             label: 'Home',
           ),
           BottomNavigationBarItem(
@@ -73,7 +77,11 @@ class _DashboardPageState extends State<DashboardPage> {
                   kAppGrey,
                   BlendMode.srcIn,
                 )),
-            activeIcon: SvgPicture.asset('lib/assets/icons/search.svg'),
+            activeIcon: SvgPicture.asset('lib/assets/icons/search.svg',
+                colorFilter: const ColorFilter.mode(
+                  kAppInversePrimary,
+                  BlendMode.srcIn,
+                )),
             label: 'Search',
           ),
           BottomNavigationBarItem(
@@ -82,7 +90,11 @@ class _DashboardPageState extends State<DashboardPage> {
                   kAppGrey,
                   BlendMode.srcIn,
                 )),
-            activeIcon: SvgPicture.asset('lib/assets/icons/order.svg'),
+            activeIcon: SvgPicture.asset('lib/assets/icons/order.svg',
+                colorFilter: const ColorFilter.mode(
+                  kAppInversePrimary,
+                  BlendMode.srcIn,
+                )),
             label: 'Order',
           ),
           BottomNavigationBarItem(
@@ -91,7 +103,11 @@ class _DashboardPageState extends State<DashboardPage> {
                   kAppGrey,
                   BlendMode.srcIn,
                 )),
-            activeIcon: SvgPicture.asset('lib/assets/icons/person.svg'),
+            activeIcon: SvgPicture.asset('lib/assets/icons/person.svg',
+                colorFilter: const ColorFilter.mode(
+                  kAppInversePrimary,
+                  BlendMode.srcIn,
+                )),
             label: 'User',
           ),
         ],

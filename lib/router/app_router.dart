@@ -1,13 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
-// import '../models/x_models.dart';
-import '../pages/home/x_homes.dart';
+import '../pages/x_pages.dart';
 
 class AppRouter {
   final router = GoRouter(
+    // initialLocation: '/intro',
     initialLocation: '/dashboard',
     routes: [
+      GoRoute(
+        name: 'intro',
+        path: '/intro',
+        builder: (context, state) => SplashPage(),
+      ),
       GoRoute(
         name: 'home',
         path: '/',

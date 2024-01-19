@@ -73,7 +73,7 @@ class MyButtons {
 
   static Widget warning(
       BuildContext context, String label, Function() function) {
-    return showMyButtons(context, label, kBlack, kBgWarning, function,
+    return showMyButtons(context, label, kBlack, kBSWarning, function,
         outlined: false, gradiented: false);
   }
 

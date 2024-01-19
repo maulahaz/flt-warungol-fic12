@@ -7,7 +7,7 @@ import 'package:badges/badges.dart' as badges;
 import '../../configs/x_configs.dart';
 import '../../controllers/x_controllers.dart';
 import '../../widgets/x_widgets.dart';
-import 'x_homes.dart';
+import '../x_pages.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -46,6 +46,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: kAppPrimary,
         title: const Text('MHz Store'),
         actions: [
           BlocBuilder<CartBloc, CartState>(
@@ -56,6 +57,8 @@ class _HomePageState extends State<HomePage> {
 
                 return totalQty > 0
                     ? badges.Badge(
+                        badgeStyle: badges.BadgeStyle(
+                            badgeColor: kAppSecondary.withAlpha(150)),
                         badgeContent: Text(
                           totalQty.toString(),
                           style: TextStyle(color: kWhite),
@@ -120,7 +123,7 @@ class _HomePageState extends State<HomePage> {
             title: 'Categories',
             onSeeAllTap: () {},
           ),
-          SizedBox(height: 12),
+          SizedBox(height: 5),
           const MenuCategories(),
           SizedBox(height: 50),
           BlocBuilder<ProductBloc, ProductState>(

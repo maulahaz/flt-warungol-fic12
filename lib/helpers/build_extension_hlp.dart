@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 
+//--MEDIAQUERY:
 extension BuildContextExtension on BuildContext {
   double get deviceHeight => MediaQuery.of(this).size.height;
 
   double get deviceWidth => MediaQuery.of(this).size.width;
 }
 
+//--NAVIGATION:
 extension NavigatorExtension on BuildContext {
   void pop<T extends Object>([T? result]) {
     Navigator.pop(this, result);
@@ -41,4 +43,9 @@ extension NavigatorExtension on BuildContext {
       predicate,
     );
   }
+}
+
+//--THEME:
+extension ThemeExtension on BuildContext {
+  ColorScheme get colorSchema => Theme.of(this).colorScheme;
 }

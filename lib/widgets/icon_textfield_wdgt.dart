@@ -35,7 +35,7 @@ class IconTextField extends StatelessWidget {
             horizontal: 16,
           ),
           decoration: BoxDecoration(
-            color: kBgPrimary,
+            color: kAppPrimary,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Center(

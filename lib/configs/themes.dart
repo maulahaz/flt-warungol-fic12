@@ -4,16 +4,28 @@ import 'x_configs.dart';
 
 class Themes {
   static final light = ThemeData(
-    primarySwatch: Colors.blue,
+    colorScheme: ColorScheme.light(
+      background: Colors.grey.shade300,
+      primary: kWhite,
+      secondary: kAppSecondary,
+      inversePrimary: kAppInversePrimary,
+    ),
+    primarySwatch: Colors.brown,
     brightness: Brightness.light,
     primaryIconTheme: IconThemeData(color: kWhite), //<- Ngrubah Warna Drawer
     fontFamily: 'Poppins', //'DancingScript', //'Nova', //
   );
 
   static final dark = ThemeData(
+    colorScheme: ColorScheme.light(
+      background: Colors.grey.shade300,
+      primary: kWhite,
+      secondary: kAppSecondary,
+      inversePrimary: kAppInversePrimary,
+    ),
     primaryColor: kAppGrey,
     brightness: Brightness.dark,
-    // fontFamily: 'Poppins',
+    fontFamily: 'Poppins',
   );
 }
 

@@ -27,11 +27,10 @@ class ProductCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
-              // color: Colors.yellow,
-              borderRadius: const BorderRadius.all(Radius.circular(10.0)),
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
               boxShadow: [
                 BoxShadow(
-                  color: kBlack.withOpacity(0.05),
+                  color: kAppPrimary, //kBlack.withOpacity(0.05),
                   blurRadius: 7.0,
                   spreadRadius: 0,
                   offset: const Offset(0, 4),
@@ -52,22 +51,19 @@ class ProductCard extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                Flexible(
+                SizedBox(height: 5),
+                Expanded(
                   child: Text(
                     data.name!,
                     style: const TextStyle(
-                      fontSize: 12,
+                      fontSize: 14,
                       fontWeight: FontWeight.w400,
                     ),
                   ),
                 ),
                 Text(
                   data.price!.currencyFormatRp,
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.w600,
-                    color: kAppPrimary,
-                  ),
+                  style: getFont(14, color: kAppSecondary, isBold: true),
                 ),
               ],
             ),

@@ -21,6 +21,7 @@ class TitleContent extends StatelessWidget {
           title,
           style: const TextStyle(
             fontWeight: FontWeight.w500,
+            color: kAppSecondary,
             fontSize: 16.0,
           ),
         ),
@@ -31,7 +32,7 @@ class TitleContent extends StatelessWidget {
             style: TextStyle(
               fontSize: 12,
               fontWeight: FontWeight.w500,
-              color: kAppPrimary,
+              color: kAppSecondary,
             ),
           ),
         ),
