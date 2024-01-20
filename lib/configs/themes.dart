@@ -6,6 +6,7 @@ class Themes {
   static final light = ThemeData(
     colorScheme: ColorScheme.light(
       background: Colors.grey.shade300,
+      // background: Color.fromRGBO(152, 233, 202, 1),
       primary: kWhite,
       secondary: kAppSecondary,
       inversePrimary: kAppInversePrimary,

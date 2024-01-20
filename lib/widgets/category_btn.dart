@@ -19,23 +19,25 @@ class CategoryButton extends StatelessWidget {
     return InkWell(
       borderRadius: const BorderRadius.all(Radius.circular(8.0)),
       onTap: onPressed,
-      child: Padding(
+      child: Container(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
-            Image.network(
-              imagePath.contains('http')
-                  ? imagePath
-                  : BASE_URL_IMAGE + 'category/' + imagePath,
-              width: 80.0,
-              height: 70.0,
-              fit: BoxFit.contain,
+            Container(
+              child: Image.network(
+                imagePath.contains('http')
+                    ? imagePath
+                    : BASE_URL_IMAGE + 'category/' + imagePath,
+                width: 80.0,
+                height: 70.0,
+                fit: BoxFit.contain,
+              ),
             ),
             SizedBox(
               width: 70.0,
               child: Text(
                 label.capitalized(),
-                style: getFont(14, color: kAppSecondary),
+                style: getFont(12, color: kAppSecondary),
                 textAlign: TextAlign.center,
               ),
             ),

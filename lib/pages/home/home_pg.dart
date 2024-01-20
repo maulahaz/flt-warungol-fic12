@@ -1,3 +1,4 @@
+import 'package:flt_warungol_fic12/helpers/build_extension_hlp.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -46,8 +47,8 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: kAppPrimary,
-        title: const Text('MHz Store'),
+        backgroundColor: context.colorSchema.background,
+        title: const Text(APP_NAME),
         actions: [
           BlocBuilder<CartBloc, CartState>(
             builder: (context, state) {

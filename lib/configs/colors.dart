@@ -15,6 +15,8 @@ const kTransparent = Colors.transparent;
 const kAppPrimary = kWhite;
 const kAppInversePrimary = Color.fromRGBO(97, 97, 97, 1);
 const kAppSecondary = Color.fromARGB(255, 53, 128, 119);
+const kAppSecondary2 = Color.fromARGB(255, 243, 234, 233);
+const kAppSecondary2Dark = Color.fromARGB(255, 248, 196, 191);
 
 const kAppLight = Color(0xFFF8F5FF);
 const kAppGrey = Color(0xFFEEEEEE);
@@ -34,7 +36,8 @@ const kBSDefault = Color(0xffe0e0e0);
 
 //--Gradient:
 const kAppGradientPrim = LinearGradient(
-  colors: [kAppPrimary, kWhite, kAppPrimaryDark],
+  colors: [Color(0xffebebeb), kAppSecondary2],
+  stops: [0.2, 0.8],
   begin: Alignment.topLeft,
   end: Alignment.bottomRight,
 );

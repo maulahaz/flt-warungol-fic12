@@ -29,7 +29,7 @@ class ProductList extends StatelessWidget {
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            childAspectRatio: (.9 / 1),
+            childAspectRatio: (1 / 1),
             crossAxisCount: 2,
             crossAxisSpacing: 10.0,
             mainAxisSpacing: 20.0,

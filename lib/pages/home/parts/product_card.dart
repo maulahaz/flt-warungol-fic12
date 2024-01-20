@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
+import 'package:badges/badges.dart' as badges;
 
 import '../../../configs/x_configs.dart';
 import '../../../models/x_models.dart';
@@ -27,10 +28,11 @@ class ProductCard extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
+              gradient: kAppGradientPrim,
               borderRadius: const BorderRadius.all(Radius.circular(10)),
               boxShadow: [
                 BoxShadow(
-                  color: kAppPrimary, //kBlack.withOpacity(0.05),
+                  color: kBlack.withOpacity(0.05),
                   blurRadius: 7.0,
                   spreadRadius: 0,
                   offset: const Offset(0, 4),
@@ -66,6 +68,23 @@ class ProductCard extends StatelessWidget {
                   style: getFont(14, color: kAppSecondary, isBold: true),
                 ),
               ],
+            ),
+          ),
+          Positioned(
+            top: 5,
+            left: 10,
+            child: badges.Badge(
+              badgeStyle: badges.BadgeStyle(
+                  badgeColor: data.readiness == 'ready'
+                      ? kAppSecondary.withOpacity(.6)
+                      : kAppSecondary2Dark.withOpacity(.5)),
+              badgeContent: Text(
+                data.readiness == 'ready' ? 'R' : 'O',
+                style: TextStyle(
+                    color: data.readiness == 'ready'
+                        ? kAppPrimary
+                        : kAppInversePrimary),
+              ),
             ),
           ),
           Positioned(

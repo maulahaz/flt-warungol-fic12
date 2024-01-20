@@ -1,3 +1,4 @@
+import 'package:flt_warungol_fic12/configs/variables.dart';
 import 'package:flt_warungol_fic12/helpers/build_extension_hlp.dart';
 import 'package:flt_warungol_fic12/widgets/x_widgets.dart';
 import 'package:flutter/material.dart';
@@ -27,7 +28,7 @@ class SplashPage extends StatelessWidget {
                 size: 100, color: context.colorSchema.inversePrimary),
             SizedBox(height: 20),
             Text(
-              'Warung Ruwaiskita',
+              APP_NAME,
               style: TextStyle(
                 color: context.colorSchema.inversePrimary,
                 fontWeight: FontWeight.w600,
