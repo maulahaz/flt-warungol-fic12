@@ -11,7 +11,7 @@ A Task of FIC-12 event by Code With Bahri
 - Backend: [Laravel v.10](https://github.com/maulahaz/lar10-warungol-fic12) 
 - DB: MySQL
 - Packages: flutter_bloc, http, intl, dartz, equatable, shared_preferences, cached_network_image, <br>
-            flutter_svg, step_progress_indicator, ...
+            flutter_svg, carousel_slider, go_router, 
 
 # References:
 <!-- - [GDrive: bahrie127/flutter Onlne Shop App](https://drive.google.com/drive/folders/XX1L88iEAIEhMAA5JMql_0BpQUlEDV0foja?usp=sharing) -->
@@ -21,7 +21,8 @@ A Task of FIC-12 event by Code With Bahri
 # Resource References:
 - [Colors](https://coolors.co/palettes/trending)
 - [SVG Icons](http://svgrepo.com)
+- [Flutter Gradient Gennerator](https://fluttergradientgenerator.com)
 
 # Snapshot:
-<!-- ![CBT-Apps](lib/assets/images/snapshot/01-cbt-apps.jpg) -->
+![01-Homepage](lib/assets/images/snap-01-homepage.png)
 <hr>
