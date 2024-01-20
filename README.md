@@ -24,5 +24,7 @@ A Task of FIC-12 event by Code With Bahri
 - [Flutter Gradient Gennerator](https://fluttergradientgenerator.com)
 
 # Snapshot:
-![01-Homepage](lib/assets/images/snap-01-homepage.png)
+![01-Homepage](lib/assets/images/snap-01-homepage.png){:width="100px"}
+<!-- ![01-Homepage](lib/assets/images/snap-01-homepage.png){:height="50%" width="50%"} -->
+<!-- ![01-Homepage](lib/assets/images/snap-01-homepage.png){:class="img-responsive"} -->
 <hr>
