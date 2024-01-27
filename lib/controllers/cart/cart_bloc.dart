@@ -26,6 +26,33 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         emit(AddItemLoadedState(newItems));
       }
     });
+
+    //--Add item to cart:
+    on<RemoveItem>((event, emit) async {
+      final currentState = state as AddItemLoadedState;
+      if (currentState.dataOutput
+          .any((element) => element.product.id == event.product.id)) {
+        final index = currentState.dataOutput
+            .indexWhere((element) => element.product.id == event.product.id);
+        final item = currentState.dataOutput[index];
+
+        //--Delete if Qty = 1
+        if (item.qty == 1) {
+          final newItems = currentState.dataOutput
+              .where((element) => element.product.id != event.product.id)
+              .toList();
+          emit(AddItemLoadedState(newItems));
+        }
+        //--Or Remove 1 item from cart
+        else {
+          final newItem = item.copyWith(qty: item.qty - 1);
+          final newItems = currentState.dataOutput
+              .map((e) => e == item ? newItem : e)
+              .toList();
+          emit(AddItemLoadedState(newItems));
+        }
+      }
+    });
   }
 }
 
@@ -36,6 +63,13 @@ sealed class CartEvent {}
 class AddItem extends CartEvent {
   Product product;
   AddItem(
+    this.product,
+  );
+}
+
+class RemoveItem extends CartEvent {
+  Product product;
+  RemoveItem(
     this.product,
   );
 }

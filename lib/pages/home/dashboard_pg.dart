@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../configs/x_configs.dart';
+import '../cart/x_carts.dart';
 import '../x_pages.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -20,16 +21,17 @@ class _DashboardPageState extends State<DashboardPage> {
   final List<Widget> _pages = [
     const HomePage(),
     // const SearchPage(),
-    // const CartPage(),
+
     // const Center(
     //   child: Text('This Page 1'),
     // ),
-    const Center(
-      child: Text('This Page 2'),
-    ),
+    // const Center(
+    //   child: Text('This Page 2'),
+    // ),
     const Center(
       child: Text('This Page 3'),
     ),
+    const CartPage(),
     const Center(
       child: Text('This Page 4 '),
     ),
@@ -95,7 +97,7 @@ class _DashboardPageState extends State<DashboardPage> {
                   kAppInversePrimary,
                   BlendMode.srcIn,
                 )),
-            label: 'Order',
+            label: 'Cart',
           ),
           BottomNavigationBarItem(
             icon: SvgPicture.asset('lib/assets/icons/person.svg',

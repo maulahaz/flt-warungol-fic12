@@ -50,6 +50,13 @@ class _HomePageState extends State<HomePage> {
         backgroundColor: context.colorSchema.background,
         title: const Text(APP_NAME),
         actions: [
+          IconButton(
+            onPressed: () {},
+            icon: SvgPicture.asset(
+              'lib/assets/icons/notification.svg',
+              height: 24,
+            ),
+          ),
           BlocBuilder<CartBloc, CartState>(
             builder: (context, state) {
               if (state is AddItemLoadedState) {
@@ -94,13 +101,7 @@ class _HomePageState extends State<HomePage> {
               }
             },
           ),
-          IconButton(
-            onPressed: () {},
-            icon: SvgPicture.asset(
-              'lib/assets/icons/notification.svg',
-              height: 24,
-            ),
-          ),
+          SizedBox(width: 14),
         ],
       ),
       body: ListView(
@@ -133,7 +134,8 @@ class _HomePageState extends State<HomePage> {
                 return CircularProgressIndicator();
               } else if (state is ProductsLoaded) {
                 return ProductList(
-                  title: 'Featured Product',
+                  // title: 'Featured Product',
+                  title: 'Main Courses',
                   onSeeAllTap: () {},
                   items: state.dataOutput.length > 2
                       ? state.dataOutput.sublist(0, 2)
@@ -159,7 +161,8 @@ class _HomePageState extends State<HomePage> {
                 return CircularProgressIndicator();
               } else if (state is BestsellerLoadedState) {
                 return ProductList(
-                  title: 'Best Sellers',
+                  // title: 'Best Sellers',
+                  title: 'Snacks',
                   onSeeAllTap: () {},
                   items: state.dataOutput.length > 2
                       ? state.dataOutput.sublist(0, 2)
@@ -189,7 +192,8 @@ class _HomePageState extends State<HomePage> {
                 return CircularProgressIndicator();
               } else if (state is TopratedLoadedState) {
                 return ProductList(
-                  title: 'Top Rated Product',
+                  // title: 'Top Rated Product',
+                  title: 'Drinks',
                   onSeeAllTap: () {},
                   items: state.dataOutput.length > 2
                       ? state.dataOutput.sublist(0, 2)

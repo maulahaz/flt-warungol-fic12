@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../pages/auth/x_auths.dart';
+import '../pages/cart/x_carts.dart';
 import '../pages/x_pages.dart';
 
 class AppRouter {
   final router = GoRouter(
     // initialLocation: '/intro',
-    initialLocation: '/dashboard',
+    initialLocation: '/signin',
     routes: [
       GoRoute(
         name: 'intro',
@@ -17,6 +19,11 @@ class AppRouter {
         name: 'home',
         path: '/',
         builder: (context, state) => HomePage(),
+      ),
+      GoRoute(
+        name: 'signin',
+        path: '/signin',
+        builder: (context, state) => SigninPage(),
       ),
       GoRoute(
           name: 'dashboard',
@@ -36,11 +43,11 @@ class AppRouter {
             //     return ProductDetailPage(data: args);
             //   },
             // ),
-            //     GoRoute(
-            //       name: RouteConstants.cart,
-            //       path: RouteConstants.cartPath,
-            //       builder: (context, state) => const CartPage(),
-            //     ),
+            GoRoute(
+              name: 'cart',
+              path: 'cart',
+              builder: (context, state) => const CartPage(),
+            ),
             //     GoRoute(
             //       name: RouteConstants.address,
             //       path: RouteConstants.addressPath,
