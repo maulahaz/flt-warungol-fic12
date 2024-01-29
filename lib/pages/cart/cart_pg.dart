@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:badges/badges.dart' as badges;
 
 import '../../controllers/x_controllers.dart';
+import '../../datasources/local/auth_local_dt.dart';
 import '../../widgets/x_widgets.dart';
 import 'x_carts.dart';
 
@@ -126,10 +127,17 @@ class CartPage extends StatelessWidget {
                   const SizedBox(height: 40.0),
                   MyButtons.primary(
                       context, 'Checkout (${state.dataOutput.length} items)',
-                      () {
-                    context.goNamed(
-                      'signin',
-                    );
+                      () async {
+                    final isAuth = await AuthLocalData.isAuth();
+                    if (isAuth) {
+                      context.goNamed(
+                        'orderDetail',
+                      );
+                    } else {
+                      context.pushNamed(
+                        'signin',
+                      );
+                    }
                   }),
                 ],
               );

@@ -23,6 +23,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => BestsellerProductBloc()),
         BlocProvider(create: (context) => TopratedProductBloc()),
         BlocProvider(create: (context) => CartBloc()),
+        BlocProvider(create: (context) => AuthBloc()),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

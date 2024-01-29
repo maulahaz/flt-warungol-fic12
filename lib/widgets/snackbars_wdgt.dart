@@ -15,14 +15,19 @@ class MySnackbar {
             Icons.notification_important,
             color: iconColor,
           ),
-          SizedBox(width: 5),
-          Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(title, style: getFont(14, color: txColor)),
-              Text(subtitle, style: getFont(12, color: txColor)),
-            ],
+          SizedBox(width: 10),
+          Flexible(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(title, style: getFont(14, color: txColor)),
+                Text(subtitle,
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: getFont(12, color: txColor)),
+              ],
+            ),
           ),
         ],
       ),

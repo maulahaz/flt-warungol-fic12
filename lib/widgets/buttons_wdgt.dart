@@ -12,6 +12,8 @@ class MyButtons {
     Function() function, {
     required bool outlined,
     required bool gradiented,
+    Widget? hasIcon,
+    bool isLoading = false,
   }) {
     //--USING ELEVATED BUTTON v.1:
     //----------------------------------------------------------------
@@ -60,7 +62,30 @@ class MyButtons {
             gradient: gradiented ? kAppGradientPrim : null,
             borderRadius: BorderRadius.all(Radius.circular(10)),
             border: outlined ? Border.all(color: bgColor, width: 2) : null),
-        child: Text(label, style: getFont(16, color: txColor)),
+        child: isLoading
+            ? Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                      width: 24,
+                      height: 24,
+                      child: CircularProgressIndicator(color: kAppPrimary)),
+                  SizedBox(width: 10),
+                  Text(label, style: getFont(16, color: txColor)),
+                ],
+              )
+            : Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  hasIcon == null
+                      ? SizedBox.shrink()
+                      : Padding(
+                          padding: const EdgeInsets.only(right: 16),
+                          child: hasIcon,
+                        ),
+                  Text(label, style: getFont(16, color: txColor))
+                ],
+              ),
       ),
     );
   }
@@ -104,5 +129,16 @@ class MyButtons {
       BuildContext context, String label, Function() function) {
     return showMyButtons(context, label, kBlack, kAppPrimary, function,
         outlined: false, gradiented: true);
+  }
+
+  static Widget isLoading(BuildContext context, String label) {
+    return showMyButtons(context, label, kAppInversePrimary, kGrey, () {},
+        outlined: false, gradiented: false, isLoading: true);
+  }
+
+  static Widget primaryIconned(
+      BuildContext context, String label, Widget icon, Function() function) {
+    return showMyButtons(context, label, kBlack, kAppPrimary, function,
+        outlined: false, gradiented: false, hasIcon: icon);
   }
 }

@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../configs/x_configs.dart';
 import '../cart/x_carts.dart';
+import '../profile/x_profiles.dart';
 import '../x_pages.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -32,9 +33,7 @@ class _DashboardPageState extends State<DashboardPage> {
       child: Text('This Page 3'),
     ),
     const CartPage(),
-    const Center(
-      child: Text('This Page 4 '),
-    ),
+    const ProfilePage(),
   ];
 
   void _onItemTapped(int index) {

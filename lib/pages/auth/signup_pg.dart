@@ -1,28 +1,45 @@
-import 'package:flt_warungol_fic12/controllers/x_controllers.dart';
-import 'package:flt_warungol_fic12/widgets/x_widgets.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../configs/x_configs.dart';
-import '../../datasources/local/x_locals.dart';
 import '../../models/x_models.dart';
+import '../../widgets/x_widgets.dart';
 import 'x_auths.dart';
 
-class SigninPage extends StatefulWidget {
-  const SigninPage({super.key});
+class SignupPage extends StatefulWidget {
+  const SignupPage({super.key});
 
   @override
-  State<SigninPage> createState() => _SigninPageState();
+  State<SignupPage> createState() => _SignupPageState();
 }
 
-class _SigninPageState extends State<SigninPage> {
+class _SignupPageState extends State<SignupPage> {
   TypeLoginIs typeLogin = TypeLoginIs.email; //phoneNumber;
   final phoneController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-
+  final confirmPasswordController = TextEditingController();
+  final countries = [
+    CountryModel(
+      name: 'Indonesia',
+      flag:
+          'https://upload.wikimedia.org/wikipedia/commons/0/0b/Flag_of_Indonesia.png',
+      phoneCode: 62,
+    ),
+    CountryModel(
+      name: 'Spanish',
+      flag:
+          'https://w7.pngwing.com/pngs/124/420/png-transparent-flag-of-spain-spanish-language-education-english-translation-spain-flag-miscellaneous-flag-text.png',
+      phoneCode: 34,
+    ),
+    CountryModel(
+      name: 'English',
+      flag:
+          'https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Great_Britain_%28English_version%29.png',
+      phoneCode: 44,
+    ),
+  ];
   late CountryModel selectedCountry;
 
   @override
@@ -36,6 +53,7 @@ class _SigninPageState extends State<SigninPage> {
     phoneController.dispose();
     emailController.dispose();
     passwordController.dispose();
+    confirmPasswordController.dispose();
     super.dispose();
   }
 
@@ -46,14 +64,14 @@ class _SigninPageState extends State<SigninPage> {
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 40.0),
         children: [
           const Text(
-            'Login Account',
+            'Register Account',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w600,
             ),
           ),
           const Text(
-            'Hello, welcome back to $APP_NAME',
+            'Hello, please complete the data below to signup',
             style: TextStyle(
               fontWeight: FontWeight.w600,
             ),
@@ -66,13 +84,67 @@ class _SigninPageState extends State<SigninPage> {
               setState(() {});
             },
           ),
-          if (typeLogin.isPhoneNumber) ...[
+          if (typeLogin.isEmail) ...[
+            const SizedBox(height: 60.0),
+            TextFormField(
+              controller: emailController,
+              keyboardType: TextInputType.emailAddress,
+              decoration: InputDecoration(
+                labelText: 'Email ID',
+                labelStyle: const TextStyle(color: kAppInversePrimary),
+                prefixIcon: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: SvgPicture.asset(
+                    'lib/assets/icons/email.svg',
+                    height: 24,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20.0),
+            TextFormField(
+              controller: passwordController,
+              obscureText: true,
+              decoration: InputDecoration(
+                labelText: 'Password',
+                labelStyle: const TextStyle(color: kAppInversePrimary),
+                prefixIcon: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: SvgPicture.asset(
+                    'lib/assets/icons/password.svg',
+                    height: 24,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20.0),
+            TextFormField(
+              controller: confirmPasswordController,
+              obscureText: true,
+              decoration: InputDecoration(
+                labelText: 'Confirm Password',
+                labelStyle: const TextStyle(color: kAppInversePrimary),
+                prefixIcon: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: SvgPicture.asset(
+                    'lib/assets/icons/password.svg',
+                    height: 24,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 50.0),
+            MyButtons.primary(context, 'Signup', () {
+              context.goNamed('/');
+            }),
+          ] else if (typeLogin.isPhoneNumber) ...[
             const SizedBox(height: 80.0),
             TextFormField(
               controller: phoneController,
               keyboardType: TextInputType.number,
               decoration: InputDecoration(
                 labelText: 'Phone Number',
+                labelStyle: const TextStyle(color: kAppInversePrimary),
                 prefixIcon: DropdownButton<CountryModel>(
                   value: selectedCountry,
                   items: countries.map<DropdownMenuItem<CountryModel>>(
@@ -105,67 +177,7 @@ class _SigninPageState extends State<SigninPage> {
             const SizedBox(height: 50.0),
             MyButtons.primary(context, 'Send OTP', () {
               context.goNamed('verification');
-            })
-          ] else if (typeLogin.isEmail) ...[
-            const SizedBox(height: 60.0),
-            TextFormField(
-              controller: emailController,
-              keyboardType: TextInputType.emailAddress,
-              cursorColor: kAppInversePrimary,
-              decoration: InputDecoration(
-                labelText: 'Email ID',
-                labelStyle: const TextStyle(color: kAppInversePrimary),
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: SvgPicture.asset(
-                    'lib/assets/icons/email.svg',
-                    height: 24,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 20.0),
-            TextFormField(
-              controller: passwordController,
-              obscureText: true,
-              cursorColor: kAppInversePrimary,
-              decoration: InputDecoration(
-                labelText: 'Password',
-                labelStyle: const TextStyle(color: kAppInversePrimary),
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: SvgPicture.asset(
-                    'lib/assets/icons/password.svg',
-                    height: 24,
-                  ),
-                ),
-              ),
-            ),
-            const SizedBox(height: 50.0),
-            BlocConsumer<AuthBloc, AuthState>(
-              listener: (context, state) {
-                if (state is SigninValidation) {
-                  MySnackbar.danger(context, 'Fail', state.value!);
-                } else if (state is AuthErrorState) {
-                  MySnackbar.danger(context, 'Error', state.error!);
-                } else if (state is AuthSignedInState) {
-                  AuthLocalData.saveAuthData(state.dataOutput);
-                  context.goNamed('orderDetail');
-                }
-              },
-              builder: (context, state) {
-                if (state is AuthLoadingState) {
-                  return MyButtons.isLoading(context, '...Loading');
-                } else {
-                  return MyButtons.primary(context, 'Signin', () {
-                    print('---Login');
-                    context.read<AuthBloc>().add(GetSignin(
-                        email: emailController.text,
-                        password: passwordController.text));
-                  });
-                }
-              },
-            )
+            }),
           ],
           const SizedBox(height: 50.0),
           const Row(
@@ -178,30 +190,26 @@ class _SigninPageState extends State<SigninPage> {
             ],
           ),
           const SizedBox(height: 50.0),
-          MyButtons.primary(context, 'Signin with Google', () {
+          MyButtons.primaryIconned(context, 'Signup with Google',
+              Image.asset('lib/assets/images/google.png', width: 20), () {
             context.goNamed('/');
           }),
-          // Button.outlined(
-          //   onPressed: () {},
-          //   label: 'Login with Google',
-          //   icon: Assets.images.google.image(height: 20.0),
-          // ),
           const SizedBox(height: 50.0),
           InkWell(
             onTap: () {
-              context.goNamed('signup');
+              context.goNamed('signin');
             },
             child: Text.rich(
               TextSpan(
                 children: [
                   TextSpan(
-                    text: 'Not Registered yet? ',
+                    text: 'Already have an Account? ',
                     style: TextStyle(
                       color: kAppInversePrimary.withOpacity(.8),
                     ),
                   ),
                   TextSpan(
-                    text: 'Create an Account',
+                    text: 'Signin Now',
                     style: TextStyle(
                       color: kAppInversePrimary,
                       fontWeight: FontWeight.w600,

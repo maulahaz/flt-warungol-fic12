@@ -6,6 +6,7 @@ class MyTextField extends StatelessWidget {
   final String label;
   final Function(String value)? onChanged;
   final bool obscureText;
+  final Widget? icon;
 
   const MyTextField({
     super.key,
@@ -13,30 +14,24 @@ class MyTextField extends StatelessWidget {
     required this.label,
     this.onChanged,
     this.obscureText = false,
+    this.icon,
   });
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(12.0),
-      height: 60.0,
-      color: kAppPrimary.withOpacity(0.2),
-      child: TextFormField(
-        controller: controller,
-        onChanged: onChanged,
-        obscureText: obscureText,
-        decoration: InputDecoration(
-          contentPadding: const EdgeInsets.all(0),
-          labelText: label,
-          labelStyle: const TextStyle(color: kGrey),
-          floatingLabelBehavior: FloatingLabelBehavior.auto,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(6.0),
-            borderSide: BorderSide.none,
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(6.0),
-            borderSide: BorderSide.none,
-          ),
+    return TextFormField(
+      controller: controller,
+      keyboardType: TextInputType.emailAddress,
+      obscureText: obscureText,
+      cursorColor: kAppInversePrimary,
+      decoration: InputDecoration(
+        labelText: label,
+        labelStyle: const TextStyle(color: kAppInversePrimary),
+        focusedBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: kAppSecondary2),
+        ),
+        prefixIcon: Padding(
+          padding: const EdgeInsets.all(12.0),
+          child: icon,
         ),
       ),
     );
