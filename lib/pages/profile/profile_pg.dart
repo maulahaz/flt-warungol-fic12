@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import '../../controllers/x_controllers.dart';
+import '../../widgets/x_widgets.dart';
 import 'x_profiles.dart';
 
 class ProfilePage extends StatelessWidget {
@@ -53,12 +54,24 @@ class ProfilePage extends StatelessWidget {
             onPressed: () {},
           ),
           const SizedBox(height: 24.0),
-          ProfileMenu(
-            label: 'Signout',
-            onPressed: () {
-              print('Signout Button');
-              context.read<AuthBloc>().add(GetSignout());
-              context.goNamed('home');
+          BlocConsumer<AuthBloc, AuthState>(
+            listener: (context, state) {
+              if (state is AuthErrorState) {
+                context.goNamed('root');
+                MySnackbar.danger(context, 'Error', state.error!);
+              } else if (state is AuthSignedOutState) {
+                context.goNamed('root');
+              }
+            },
+            builder: (context, state) {
+              return ProfileMenu(
+                label: 'Signout',
+                onPressed: () {
+                  print('Signout Button');
+                  context.read<AuthBloc>().add(GetSignout());
+                  context.goNamed('home');
+                },
+              );
             },
           ),
         ],

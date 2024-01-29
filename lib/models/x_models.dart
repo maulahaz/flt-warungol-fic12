@@ -8,3 +8,5 @@ export 'cart_mdl.dart';
 //--Auth:
 export 'auth_mdl.dart';
 export 'country_mdl.dart';
+//--Address:
+export 'address_mdl.dart';

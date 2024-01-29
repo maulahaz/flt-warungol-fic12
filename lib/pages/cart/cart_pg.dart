@@ -67,7 +67,7 @@ class CartPage extends StatelessWidget {
                     Text('Your cart is empty'),
                     SizedBox(height: 20),
                     MyButtons.warning(context, 'Add your cart',
-                        () => context.goNamed('home')),
+                        () => context.pushNamed('root')),
                   ],
                 ),
               );
