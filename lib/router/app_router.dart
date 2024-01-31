@@ -34,9 +34,7 @@ class AppRouter {
         path: '/root',
         builder: (context, state) {
           final tab = 0;
-          return DashboardPage(
-            currentTab: tab,
-          );
+          return DashboardPage(currentTab: tab);
         },
         routes: [
           GoRoute(

@@ -10,3 +10,5 @@ export 'auth_mdl.dart';
 export 'country_mdl.dart';
 //--Address:
 export 'address_mdl.dart';
+//--Rajaongkir
+export 'province_mdl.dart';

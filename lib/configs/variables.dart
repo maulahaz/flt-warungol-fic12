@@ -13,6 +13,7 @@ const String APP_VERSI = '2.40120.01';
 
 //--SERVICES:
 const String BASE_URL = "http://10.0.2.2:8000"; // Emulator-Laravel-Localhost
+// const String BASE_URL = "http://192.168.0.102:8000"; // Localhost-Chrome (58512)
 // const String BASE_URL = "https://fic10.flutterdev.my.id/api/"; //--Real Web
 // const String BASE_URL = 'http://10.0.2.2/ci4-kinclong/api/'; // Emulator
 // const String BASE_URL = "http://10.0.2.2/tron-siode/"; // Emulator

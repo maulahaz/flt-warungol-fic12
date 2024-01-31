@@ -24,6 +24,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => TopratedProductBloc()),
         BlocProvider(create: (context) => CartBloc()),
         BlocProvider(create: (context) => AuthBloc()),
+        BlocProvider(create: (context) => AddressBloc()),
+        BlocProvider(create: (context) => AddressCubit()),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

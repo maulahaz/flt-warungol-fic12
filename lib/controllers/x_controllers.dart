@@ -8,3 +8,6 @@ export 'product/toprated_product_bloc.dart';
 export 'cart/cart_bloc.dart';
 //--Auth:
 export 'auth/auth_bloc.dart';
+//--Address:
+export 'address/address_bloc.dart';
+export 'address/address_cubit.dart';

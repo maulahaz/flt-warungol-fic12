@@ -4,6 +4,8 @@ export 'this_appbar.dart';
 export 'this_sliver_appbar.dart';
 export 'banner_slider.dart';
 export 'category_btn.dart';
+export 'custom_dropdown.dart';
+export 'custom_textfield.dart';
 
 //--MY USEABLE CUSTOMS WIDGET:
 export 'buttons_wdgt.dart';

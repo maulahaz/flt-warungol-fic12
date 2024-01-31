@@ -131,7 +131,7 @@ class CartPage extends StatelessWidget {
                     final isAuth = await AuthLocalData.isAuth();
                     if (isAuth) {
                       context.goNamed(
-                        'orderDetail',
+                        'address',
                       );
                     } else {
                       context.pushNamed(

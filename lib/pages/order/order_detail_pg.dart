@@ -22,7 +22,7 @@ class OrderDetailPage extends StatelessWidget {
               context.goNamed('dashboard');
             }),
             MyButtons.primary(context, 'Go to Dashboard', () {
-              context.goNamed('dashboard');
+              context.goNamed('root');
             })
           ],
         ),

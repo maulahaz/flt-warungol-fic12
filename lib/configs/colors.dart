@@ -12,6 +12,7 @@ const kBlack = Color(0xFF101010);
 const kTransparent = Colors.transparent;
 
 //--App Colors Pallets:
+const kPrimary = Color.fromRGBO(224, 224, 224, 1);
 const kAppPrimary = kWhite;
 const kAppInversePrimary = Color.fromRGBO(97, 97, 97, 1);
 const kAppSecondary = Color.fromARGB(255, 53, 128, 119);
