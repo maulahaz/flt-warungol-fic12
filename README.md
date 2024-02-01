@@ -1,7 +1,7 @@
 # Project : flt-warungol-fic12 
 *********************************************
 An Online Store app using Flutter App<br>
-A Task of FIC-12 event by Code With Bahri
+FIC-12 event by Code With Bahri
 <br><br>
 
 # Notes:
@@ -10,6 +10,7 @@ A Task of FIC-12 event by Code With Bahri
 - State Mgt: BLoC
 - Backend: [Laravel v.10](https://github.com/maulahaz/lar10-warungol-fic12) 
 - DB: MySQL
+- API Rajaongkir, Midtrans.
 - Packages: flutter_bloc, http, intl, dartz, equatable, shared_preferences, cached_network_image, <br>
             flutter_svg, carousel_slider, go_router, 
 
@@ -24,5 +25,9 @@ A Task of FIC-12 event by Code With Bahri
 - [Flutter Gradient Gennerator](https://fluttergradientgenerator.com)
 
 # Snapshot:
-[<img src="lib/assets/images/snap-01-homepage.png" width="200px">](https://github.com/maulahaz/flt-warungol-fic12)
+[<img src="lib/assets/images/snapshot/snap-warungol-1">](https://github.com/maulahaz/flt-warungol-fic12)
+<!-- [<img src="lib/assets/images/snapshot/snap-fic12-1.jpg" width="200px">](https://github.com/maulahaz/flt-warungol-fic12)
+[<img src="lib/assets/images/snapshot/snap-fic12-2.jpg" width="200px">](https://github.com/maulahaz/flt-warungol-fic12)
+[<img src="lib/assets/images/snapshot/snap-fic12-3.jpg" width="200px">](https://github.com/maulahaz/flt-warungol-fic12)
+[<img src="lib/assets/images/snapshot/snap-fic12-4.jpg" width="200px">](https://github.com/maulahaz/flt-warungol-fic12) -->
 <hr>

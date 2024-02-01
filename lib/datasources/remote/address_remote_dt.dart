@@ -31,8 +31,7 @@ class AddressRemoteData {
 
   //--Add New Data:
   // ========================================================================
-  static Future<Either<String, String>> addAddress(
-      Map<String, dynamic> data) async {
+  static Future<Either<String, String>> addAddress(Address data) async {
     try {
       final authData = await AuthLocalData.getAuthData();
       var url = Uri.parse(BASE_URL + '/api/address');

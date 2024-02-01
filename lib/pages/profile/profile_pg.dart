@@ -59,7 +59,7 @@ class ProfilePage extends StatelessWidget {
               if (state is AuthErrorState) {
                 context.goNamed('root');
                 MySnackbar.danger(context, 'Error', state.error!);
-              } else if (state is AuthSignedOutState) {
+              } else if (state is AuthSignedInState) {
                 context.goNamed('root');
               }
             },

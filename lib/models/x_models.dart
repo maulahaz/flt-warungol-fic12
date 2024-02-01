@@ -12,3 +12,5 @@ export 'country_mdl.dart';
 export 'address_mdl.dart';
 //--Rajaongkir
 export 'province_mdl.dart';
+export 'city_mdl.dart';
+export 'subdistrict_mdl.dart';

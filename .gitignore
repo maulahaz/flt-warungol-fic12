@@ -45,4 +45,4 @@ app.*.map.json
 # FVM Version Cache
 .fvm/flutter_sdk
 
-/lib/configs/*key*
+*key*

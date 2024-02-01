@@ -11,3 +11,6 @@ export 'auth/auth_bloc.dart';
 //--Address:
 export 'address/address_bloc.dart';
 export 'address/address_cubit.dart';
+export 'address/province_bloc.dart';
+export 'address/city_bloc.dart';
+export 'address/subdistrict_bloc.dart';

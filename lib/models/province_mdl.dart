@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 class ProvinceModel {
-  final Rajaongkir? rajaongkir;
+  final RajaongkirProvince? rajaongkir;
 
   ProvinceModel({
     this.rajaongkir,
@@ -15,7 +15,7 @@ class ProvinceModel {
   factory ProvinceModel.fromMap(Map<String, dynamic> json) => ProvinceModel(
         rajaongkir: json["rajaongkir"] == null
             ? null
-            : Rajaongkir.fromMap(json["rajaongkir"]),
+            : RajaongkirProvince.fromMap(json["rajaongkir"]),
       );
 
   Map<String, dynamic> toMap() => {
@@ -23,27 +23,30 @@ class ProvinceModel {
       };
 }
 
-class Rajaongkir {
+class RajaongkirProvince {
   final List<dynamic>? query;
-  final Status? status;
+  final StatusRajaongkirProvince? status;
   final List<Province>? results;
 
-  Rajaongkir({
+  RajaongkirProvince({
     this.query,
     this.status,
     this.results,
   });
 
-  factory Rajaongkir.fromJson(String str) =>
-      Rajaongkir.fromMap(json.decode(str));
+  factory RajaongkirProvince.fromJson(String str) =>
+      RajaongkirProvince.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory Rajaongkir.fromMap(Map<String, dynamic> json) => Rajaongkir(
+  factory RajaongkirProvince.fromMap(Map<String, dynamic> json) =>
+      RajaongkirProvince(
         query: json["query"] == null
             ? []
             : List<dynamic>.from(json["query"]!.map((x) => x)),
-        status: json["status"] == null ? null : Status.fromMap(json["status"]),
+        status: json["status"] == null
+            ? null
+            : StatusRajaongkirProvince.fromMap(json["status"]),
         results: json["results"] == null
             ? []
             : List<Province>.from(
@@ -86,20 +89,22 @@ class Province {
   String toString() => '$province';
 }
 
-class Status {
+class StatusRajaongkirProvince {
   final int? code;
   final String? description;
 
-  Status({
+  StatusRajaongkirProvince({
     this.code,
     this.description,
   });
 
-  factory Status.fromJson(String str) => Status.fromMap(json.decode(str));
+  factory StatusRajaongkirProvince.fromJson(String str) =>
+      StatusRajaongkirProvince.fromMap(json.decode(str));
 
   String toJson() => json.encode(toMap());
 
-  factory Status.fromMap(Map<String, dynamic> json) => Status(
+  factory StatusRajaongkirProvince.fromMap(Map<String, dynamic> json) =>
+      StatusRajaongkirProvince(
         code: json["code"],
         description: json["description"],
       );

@@ -1,5 +1,4 @@
-import 'package:flt_warungol_fic12/datasources/remote/address_remote_dt.dart';
-import 'package:flt_warungol_fic12/models/address_mdl.dart';
+import 'package:flt_warungol_fic12/datasources/remote/x_remotes.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../models/x_models.dart';
@@ -22,17 +21,17 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     });
 
     //--Add Address:
-    // on<AddAddress>((event, emit) async {
-    //   emit(AddAddressLoadingState());
-    //   final response = await AddressRemoteData.addAddress();
-    //   response.fold((L) => emit(AddAddressErrorState(L)), (R) {
-    //     if (R.data!.isEmpty) {
-    //       emit(AddAddressInitialState());
-    //     } else {
-    //       emit(AddAddressLoadedState(R.data!));
-    //     }
-    //   });
-    // });
+    on<AddAddress>((event, emit) async {
+      emit(AddAddressLoadingState());
+      final response = await AddressRemoteData.addAddress(event.address);
+      response.fold((L) => emit(AddAddressErrorState(L)), (R) {
+        if (R.isEmpty) {
+          emit(AddAddressInitialState());
+        } else {
+          emit(AddAddressLoadedState(R));
+        }
+      });
+    });
   }
 }
 
@@ -43,6 +42,7 @@ sealed class AddressEvent {}
 class GetAddress extends AddressEvent {}
 
 class AddAddress extends AddressEvent {
+  // Map<String, dynamic> address;
   Address address;
   AddAddress(
     this.address,
@@ -96,7 +96,7 @@ final class AddAddressErrorState extends AddressState {
 }
 
 final class AddAddressLoadedState extends AddressState {
-  List<Address> dataOutput;
+  String result;
 
-  AddAddressLoadedState(this.dataOutput);
+  AddAddressLoadedState(this.result);
 }
