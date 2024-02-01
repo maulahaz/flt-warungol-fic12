@@ -25,7 +25,7 @@ FIC-12 event by Code With Bahri
 - [Flutter Gradient Gennerator](https://fluttergradientgenerator.com)
 
 # Snapshot:
-[<img src="lib/assets/images/snapshot/snap-warungol-1">](https://github.com/maulahaz/flt-warungol-fic12)
+[<img src="lib/assets/images/snapshot/snap-warungol-1.png">](https://github.com/maulahaz/flt-warungol-fic12)
 <!-- [<img src="lib/assets/images/snapshot/snap-fic12-1.jpg" width="200px">](https://github.com/maulahaz/flt-warungol-fic12)
 [<img src="lib/assets/images/snapshot/snap-fic12-2.jpg" width="200px">](https://github.com/maulahaz/flt-warungol-fic12)
 [<img src="lib/assets/images/snapshot/snap-fic12-3.jpg" width="200px">](https://github.com/maulahaz/flt-warungol-fic12)
