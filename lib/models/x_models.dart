@@ -14,3 +14,5 @@ export 'address_mdl.dart';
 export 'province_mdl.dart';
 export 'city_mdl.dart';
 export 'subdistrict_mdl.dart';
+//--Order
+export 'shipping_mdl.dart';

@@ -23,6 +23,7 @@ class AddressBloc extends Bloc<AddressEvent, AddressState> {
     //--Add Address:
     on<AddAddress>((event, emit) async {
       emit(AddAddressLoadingState());
+      print(event.address.address);
       final response = await AddressRemoteData.addAddress(event.address);
       response.fold((L) => emit(AddAddressErrorState(L)), (R) {
         if (R.isEmpty) {

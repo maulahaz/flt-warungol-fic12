@@ -35,12 +35,14 @@ class AddressRemoteData {
     try {
       final authData = await AuthLocalData.getAuthData();
       var url = Uri.parse(BASE_URL + '/api/address');
+      // print(data.toMap());
       var response = await http.post(url,
           headers: {
+            'Accept': 'application/json',
             'Content-Type': 'application/json',
             'Authorization': 'Bearer ${authData.accessToken}',
           },
-          body: jsonEncode(data));
+          body: jsonEncode(data.toMap()));
       if (response.statusCode == 201) {
         return Right('Success');
       } else {

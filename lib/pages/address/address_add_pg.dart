@@ -156,22 +156,38 @@ class _AddressAddPageState extends State<AddressAddPage> {
             label: 'Phone Number',
           ),
           const SizedBox(height: 24.0),
-          MyButtons.primary(context, 'Save', () {
-            context.pop();
-            context.read<AddressBloc>().add(AddAddress(
-                  Address(
-                    name: nameController.text,
-                    address: addressController.text,
-                    phone: phoneNumberController.text,
-                    cityId: cityController.text,
-                    provinceId: provinceController.text,
-                    // districtId: distr.text,
-                    postalCode: postalCodeController.text,
-                    userId: 2,
-                    isDefault: 0,
-                  ),
-                ));
-          })
+
+          BlocConsumer<AddressBloc, AddressState>(
+            listener: (context, state) {
+              if (state is AddAddressLoadedState) {
+                context.goNamed('address');
+              } else {}
+            },
+            builder: (context, state) {
+              if (state is AddAddressLoadingState) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              } else {
+                return MyButtons.primary(context, 'Save', () {
+                  // print('Test');
+                  context.read<AddressBloc>().add(AddAddress(
+                        Address(
+                          name: nameController.text,
+                          address: addressController.text,
+                          phone: phoneNumberController.text,
+                          provinceId: selectedProvince.provinceId,
+                          cityId: selectedCity.cityId,
+                          districtId: selectedSubdistrict.subdistrictId,
+                          postalCode: postalCodeController.text,
+                          userId: 2,
+                          isDefault: 0,
+                        ),
+                      ));
+                });
+              }
+            },
+          )
         ],
       ),
     );
