@@ -15,7 +15,7 @@ class RajaongkirRemoteData {
         url,
         headers: {'key': RAJAONGKIR_KEY},
       );
-      print(response.body);
+      // print(response.body);
       if (response.statusCode == 200) {
         return right(ProvinceModel.fromJson(response.body));
       } else {
@@ -55,10 +55,37 @@ class RajaongkirRemoteData {
         'key': RAJAONGKIR_KEY,
       },
     );
-    print('--Subdistrict');
-    print(response.body);
+    // print('--Subdistrict');
+    // print(response.body);
     if (response.statusCode == 200) {
       return right(SubdistrictModel.fromJson(response.body));
+    } else {
+      return left('Error');
+    }
+  }
+
+  //--Get Shipping Cost by Subdistrict (Kecamatan):
+  static Future<Either<String, ShippingCostModel>> getShippingCost(
+      String origin, String destination, String courier) async {
+    final url = Uri.parse('https://pro.rajaongkir.com/api/cost');
+    final response = await http.post(
+      url,
+      headers: {
+        'key': RAJAONGKIR_KEY,
+      },
+      body: {
+        "origin": origin,
+        "originType": "subdistrict",
+        "destination": destination,
+        "destinationType": "subdistrict",
+        "weight": "1000",
+        "courier": courier,
+      },
+    );
+    // print('--getShippingCost');
+    // print(response.body);
+    if (response.statusCode == 200) {
+      return right(ShippingCostModel.fromJson(response.body));
     } else {
       return left('Error');
     }

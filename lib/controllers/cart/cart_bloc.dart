@@ -6,7 +6,7 @@ import '../../models/x_models.dart';
 //--Bloc
 //=============================================================================
 class CartBloc extends Bloc<CartEvent, CartState> {
-  CartBloc() : super(AddItemLoadedState([])) {
+  CartBloc() : super(AddItemLoadedState([], 0, '', '', 0, '')) {
     //--Add item to cart:
     on<AddItem>((event, emit) async {
       final currentState = state as AddItemLoadedState;
@@ -19,11 +19,11 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         final newItems = currentState.dataOutput
             .map((e) => e == item ? newItem : e)
             .toList();
-        emit(AddItemLoadedState(newItems));
+        emit(AddItemLoadedState(newItems, 0, '', '', 0, ''));
       } else {
         final newItem = ProductQuantityModel(product: event.product, qty: 1);
         final newItems = [...currentState.dataOutput, newItem];
-        emit(AddItemLoadedState(newItems));
+        emit(AddItemLoadedState(newItems, 0, '', '', 0, ''));
       }
     });
 
@@ -41,7 +41,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           final newItems = currentState.dataOutput
               .where((element) => element.product.id != event.product.id)
               .toList();
-          emit(AddItemLoadedState(newItems));
+          emit(AddItemLoadedState(newItems, 0, '', '', 0, ''));
         }
         //--Or Remove 1 item from cart
         else {
@@ -49,9 +49,35 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           final newItems = currentState.dataOutput
               .map((e) => e == item ? newItem : e)
               .toList();
-          emit(AddItemLoadedState(newItems));
+          emit(AddItemLoadedState(newItems, 0, '', '', 0, ''));
         }
       }
+    });
+
+    //--Add AddressId to cart:
+    on<AddAddressId>((event, emit) async {
+      final currentState = state as AddItemLoadedState;
+      emit(AddItemLoadedState(
+        currentState.dataOutput,
+        event.addressId,
+        currentState.paymentMethod,
+        currentState.shippingService,
+        currentState.shippingCost,
+        currentState.paymentVAName,
+      ));
+    });
+
+    //--Add ShippingService to cart:
+    on<AddShippingService>((event, emit) async {
+      final currentState = state as AddItemLoadedState;
+      emit(AddItemLoadedState(
+        currentState.dataOutput,
+        currentState.addressId,
+        currentState.paymentMethod,
+        event.shippingService,
+        event.shippingCost,
+        currentState.paymentVAName,
+      ));
     });
   }
 }
@@ -74,6 +100,29 @@ class RemoveItem extends CartEvent {
   );
 }
 
+class AddAddressId extends CartEvent {
+  int addressId;
+  AddAddressId(
+    this.addressId,
+  );
+}
+
+class AddPaymentMethod extends CartEvent {
+  String paymentMethod;
+  AddPaymentMethod(
+    this.paymentMethod,
+  );
+}
+
+class AddShippingService extends CartEvent {
+  String shippingService;
+  int shippingCost;
+  AddShippingService(
+    this.shippingService,
+    this.shippingCost,
+  );
+}
+
 //--BlocState
 //=============================================================================
 sealed class CartState {}
@@ -88,7 +137,19 @@ final class AddItemErrorState extends CartState {
 }
 
 final class AddItemLoadedState extends CartState {
-  List<ProductQuantityModel> dataOutput;
+  AddItemLoadedState(
+    this.dataOutput,
+    this.addressId,
+    this.paymentMethod,
+    this.shippingService,
+    this.shippingCost,
+    this.paymentVAName,
+  );
 
-  AddItemLoadedState(this.dataOutput);
+  List<ProductQuantityModel> dataOutput;
+  int addressId;
+  String paymentMethod;
+  String shippingService;
+  int shippingCost;
+  String paymentVAName;
 }

@@ -18,6 +18,16 @@ class OrderDetailPage extends StatefulWidget {
 
 class _OrderDetailPageState extends State<OrderDetailPage> {
   @override
+  void initState() {
+    context.read<ShippingCostBloc>().add(GetShippingCosts(
+          origin: '5779',
+          destination: '2103',
+          courier: 'jne',
+        ));
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -62,8 +72,12 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
             },
           ),
           const SizedBox(height: 36.0),
+          //--Select Shipping:
           const SelectShipping(),
-          // const _ShippingSelected(),
+          const SizedBox(height: 12.0),
+          //--Shipping Selected:
+          const ShippingSelected(),
+          //--
           const SizedBox(height: 36.0),
           const Divider(),
           const SizedBox(height: 8.0),
@@ -84,11 +98,22 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                 ),
               ),
               const Spacer(),
-              Text(
-                1520000.currencyFormatRp,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w600,
-                ),
+              BlocBuilder<CartBloc, CartState>(
+                builder: (context, state) {
+                  final total = (state is AddItemLoadedState)
+                      ? state.dataOutput.fold<int>(
+                          0,
+                          (previousValue, element) =>
+                              previousValue +
+                              (element.qty * element.product.price!))
+                      : 0;
+                  return Text(
+                    total.currencyFormatRp,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  );
+                },
               ),
             ],
           ),
@@ -102,11 +127,17 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
                 ),
               ),
               const Spacer(),
-              Text(
-                25000.currencyFormatRp,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w600,
-                ),
+              BlocBuilder<CartBloc, CartState>(
+                builder: (context, state) {
+                  final shippingCost =
+                      (state is AddItemLoadedState) ? state.shippingCost : 0;
+                  return Text(
+                    shippingCost.currencyFormatRp,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  );
+                },
               ),
             ],
           ),
@@ -118,16 +149,29 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
               const Text(
                 'Grand Total',
                 style: TextStyle(
+                  fontSize: 16,
                   fontWeight: FontWeight.w600,
                 ),
               ),
               const Spacer(),
-              Text(
-                1545000.currencyFormatRp,
-                style: const TextStyle(
-                  color: kAppSecondary,
-                  fontWeight: FontWeight.w600,
-                ),
+              BlocBuilder<CartBloc, CartState>(
+                builder: (context, state) {
+                  final grandTotal = (state is AddItemLoadedState)
+                      ? state.dataOutput.fold<int>(
+                              0,
+                              (previousValue, element) =>
+                                  previousValue +
+                                  (element.qty * element.product.price!)) +
+                          state.shippingCost
+                      : 0;
+                  return Text(
+                    grandTotal.currencyFormatRp,
+                    style: const TextStyle(
+                      color: kAppSecondary,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  );
+                },
               ),
             ],
           ),

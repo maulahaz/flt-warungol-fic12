@@ -127,7 +127,7 @@ class _HomePageState extends State<HomePage> {
           ),
           SizedBox(height: 5),
           const MenuCategories(),
-          SizedBox(height: 50),
+          SizedBox(height: 22),
           BlocBuilder<ProductBloc, ProductState>(
             builder: (context, state) {
               if (state is ProductLoading) {

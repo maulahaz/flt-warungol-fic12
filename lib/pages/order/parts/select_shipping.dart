@@ -1,36 +1,17 @@
 import 'package:flt_warungol_fic12/helpers/x_helpers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../../configs/x_configs.dart';
-import '../../../models/x_models.dart';
+import '../../../controllers/x_controllers.dart';
 
 class SelectShipping extends StatelessWidget {
   const SelectShipping();
 
   @override
   Widget build(BuildContext context) {
-    final selectedPayment = ValueNotifier<int>(0);
-    final shippings = [
-      ShippingModel(
-        type: 'Reguler',
-        priceStart: 20000,
-        priceEnd: 30000,
-        estimate: DateTime.now().subtract(const Duration(days: 3)),
-      ),
-      ShippingModel(
-        type: 'Cargo',
-        priceStart: 20000,
-        priceEnd: 30000,
-        estimate: DateTime.now().subtract(const Duration(days: 3)),
-      ),
-      ShippingModel(
-        type: 'Economy',
-        priceStart: 20000,
-        priceEnd: 30000,
-        estimate: DateTime.now().subtract(const Duration(days: 4)),
-      ),
-    ];
+    // final selectedPayment = ValueNotifier<int>(0);
 
     void onSelectShippingTap() {
       showModalBottomSheet(
@@ -114,26 +95,60 @@ class SelectShipping extends StatelessWidget {
                 ),
                 const SizedBox(height: 30.0),
                 const Divider(color: kAppInversePrimary),
-                ValueListenableBuilder(
-                  valueListenable: selectedPayment,
-                  builder: (context, value, _) => ListView.separated(
-                    shrinkWrap: true,
-                    physics: const NeverScrollableScrollPhysics(),
-                    itemBuilder: (context, index) {
-                      final item = shippings[index];
-                      return ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        onTap: () {},
-                        title: Text('${item.type} (${item.priceFormat})'),
-                        subtitle:
-                            Text('Arrive Estimation ${item.estimateFormat}'),
+                BlocBuilder<ShippingCostBloc, ShippingCostState>(
+                  builder: (context, state) {
+                    if (state is GetShippingCostLoadedState) {
+                      return ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          final item = state.shippingCost.rajaongkir!
+                              .results![0].costs![index];
+                          return ListTile(
+                            contentPadding: EdgeInsets.zero,
+                            onTap: () {
+                              context.read<CartBloc>().add(AddShippingService(
+                                  'jne', item.cost![0].value!));
+                              context.pop();
+                            },
+                            title: Text(
+                                '${item.service} - ${item.description} (${item.cost![0].value!.currencyFormatRp})'),
+                            subtitle:
+                                Text('Estimation ${item.cost![0].etd} day(s)'),
+                          );
+                        },
+                        separatorBuilder: (context, index) =>
+                            const Divider(color: kAppInversePrimary),
+                        itemCount: state
+                            .shippingCost.rajaongkir!.results![0].costs!.length,
                       );
-                    },
-                    separatorBuilder: (context, index) =>
-                        const Divider(color: kAppInversePrimary),
-                    itemCount: shippings.length,
-                  ),
+                    } else if (state is GetShippingCostLoadingState) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else {
+                      return const SizedBox();
+                    }
+                  },
                 ),
+                // ValueListenableBuilder(
+                //   valueListenable: selectedPayment,
+                //   builder: (context, value, _) => ListView.separated(
+                //     shrinkWrap: true,
+                //     physics: const NeverScrollableScrollPhysics(),
+                //     itemBuilder: (context, index) {
+                //       final item = shippings[index];
+                //       return ListTile(
+                //         contentPadding: EdgeInsets.zero,
+                //         onTap: () {},
+                //         title: Text('${item.type} (${item.priceFormat})'),
+                //         subtitle:
+                //             Text('Arrive Estimation ${item.estimateFormat}'),
+                //       );
+                //     },
+                //     separatorBuilder: (context, index) =>
+                //         const Divider(color: kAppInversePrimary),
+                //     itemCount: shippings.length,
+                //   ),
+                // ),
               ],
             ),
           );
