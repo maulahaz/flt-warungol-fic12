@@ -19,6 +19,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => CategoryBloc()),
+        BlocProvider(create: (context) => WarungBloc()),
         BlocProvider(create: (context) => ProductBloc()),
         BlocProvider(create: (context) => BestsellerProductBloc()),
         BlocProvider(create: (context) => TopratedProductBloc()),

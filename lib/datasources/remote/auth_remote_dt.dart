@@ -38,9 +38,9 @@ class AuthRemoteData {
         },
         body: jsonEncode(loginData),
       );
-      print(loginData);
-      print(jsonEncode(loginData));
-      print(response.statusCode);
+      // print(loginData);
+      // print(jsonEncode(loginData));
+      // print(response.statusCode);
       if (response.statusCode == 200) {
         return Right(AuthModel.fromJson(response.body));
       } else {

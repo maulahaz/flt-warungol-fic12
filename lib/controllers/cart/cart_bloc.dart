@@ -6,7 +6,7 @@ import '../../models/x_models.dart';
 //--Bloc
 //=============================================================================
 class CartBloc extends Bloc<CartEvent, CartState> {
-  CartBloc() : super(AddItemLoadedState([], 0, '', '', 0, '')) {
+  CartBloc() : super(AddItemLoadedState([], 0, 'bank_transfer', '', 0, '')) {
     //--Add item to cart:
     on<AddItem>((event, emit) async {
       final currentState = state as AddItemLoadedState;
@@ -19,11 +19,11 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         final newItems = currentState.dataOutput
             .map((e) => e == item ? newItem : e)
             .toList();
-        emit(AddItemLoadedState(newItems, 0, '', '', 0, ''));
+        emit(AddItemLoadedState(newItems, 0, 'bank_transfer', '', 0, ''));
       } else {
         final newItem = ProductQuantityModel(product: event.product, qty: 1);
         final newItems = [...currentState.dataOutput, newItem];
-        emit(AddItemLoadedState(newItems, 0, '', '', 0, ''));
+        emit(AddItemLoadedState(newItems, 0, 'bank_transfer', '', 0, ''));
       }
     });
 
@@ -41,7 +41,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           final newItems = currentState.dataOutput
               .where((element) => element.product.id != event.product.id)
               .toList();
-          emit(AddItemLoadedState(newItems, 0, '', '', 0, ''));
+          emit(AddItemLoadedState(newItems, 0, 'bank_transfer', '', 0, ''));
         }
         //--Or Remove 1 item from cart
         else {
@@ -49,7 +49,7 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           final newItems = currentState.dataOutput
               .map((e) => e == item ? newItem : e)
               .toList();
-          emit(AddItemLoadedState(newItems, 0, '', '', 0, ''));
+          emit(AddItemLoadedState(newItems, 0, 'bank_transfer', '', 0, ''));
         }
       }
     });
@@ -77,6 +77,19 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         event.shippingService,
         event.shippingCost,
         currentState.paymentVAName,
+      ));
+    });
+
+    //--Add PaymentMethod to cart:
+    on<AddPaymentMethod>((event, emit) async {
+      final currentState = state as AddItemLoadedState;
+      emit(AddItemLoadedState(
+        currentState.dataOutput,
+        currentState.addressId,
+        event.paymentMethod,
+        currentState.shippingService,
+        currentState.shippingCost,
+        event.paymentVAName,
       ));
     });
   }
@@ -109,8 +122,10 @@ class AddAddressId extends CartEvent {
 
 class AddPaymentMethod extends CartEvent {
   String paymentMethod;
+  String paymentVAName;
   AddPaymentMethod(
     this.paymentMethod,
+    this.paymentVAName,
   );
 }
 

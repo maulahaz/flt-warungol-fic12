@@ -9,7 +9,7 @@ extension BuildContextExtension on BuildContext {
 
 //--NAVIGATION:
 extension NavigatorExtension on BuildContext {
-  void pop<T extends Object>([T? result]) {
+  void navPop<T extends Object>([T? result]) {
     Navigator.pop(this, result);
   }
 

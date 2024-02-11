@@ -2,6 +2,7 @@ import 'package:flt_warungol_fic12/helpers/x_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../../configs/x_configs.dart';
 import '../../../controllers/x_controllers.dart';
@@ -109,7 +110,7 @@ class SelectShipping extends StatelessWidget {
                             onTap: () {
                               context.read<CartBloc>().add(AddShippingService(
                                   'jne', item.cost![0].value!));
-                              context.pop();
+                              context.navPop();
                             },
                             title: Text(
                                 '${item.service} - ${item.description} (${item.cost![0].value!.currencyFormatRp})'),

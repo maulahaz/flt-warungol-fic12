@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
+import '../pages/x_pages.dart';
 import '../pages/address/x_addresses.dart';
 import '../pages/auth/x_auths.dart';
 import '../pages/cart/x_carts.dart';
 import '../pages/order/x_orders.dart';
-import '../pages/x_pages.dart';
+import '../pages/payment/x_payments.dart';
 
 class AppRouter {
   final router = GoRouter(
-    // initialLocation: '/intro',
-    initialLocation: '/root',
+    initialLocation: '/intro',
+    // initialLocation: '/root',
     routes: [
       GoRoute(
         name: 'intro',
@@ -43,10 +44,34 @@ class AppRouter {
             builder: (context, state) => const CartPage(),
             routes: [
               GoRoute(
-                name: 'orderDetail',
-                path: 'order-detail',
-                builder: (context, state) => const OrderDetailPage(),
-              )
+                  name: 'orderDetail',
+                  path: 'order-detail',
+                  builder: (context, state) => const OrderDetailPage(),
+                  routes: [
+                    GoRoute(
+                        name: 'payment',
+                        path: 'payment',
+                        builder: (context, state) => const PaymentPage(),
+                        routes: [
+                          // GoRoute(
+                          //   name: 'paymentWaiting',
+                          //   path: 'payment-waiting',
+                          //   builder: (context, state) => PaymentWaitingPage(),
+                          // ),
+                          // GoRoute(
+                          //   name: 'trackingOrder',
+                          //   path: 'tracking-order',
+                          //   builder: (context, state) => TrackingOrderPage(),
+                          // routes: [
+                          //   GoRoute(
+                          //     name: 'shippingDetail',
+                          //     path: 'shipping-detail',
+                          //     builder: (context, state) => const ShippingDetailPage(),
+                          //   ),
+                          // ],
+                          // ),
+                        ])
+                  ])
             ],
           ),
           GoRoute(

@@ -37,7 +37,7 @@ class AppScaffold extends StatelessWidget {
         ),
         leading: showBackButton
             ? IconButton(
-                onPressed: () => context.pop(),
+                onPressed: () => context.navPop(),
                 icon: const Icon(
                   Icons.chevron_left,
                   color: kWhite,

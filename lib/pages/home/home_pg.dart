@@ -19,14 +19,6 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   late TextEditingController searchController;
-  final List<String> banners1 = [
-    'lib/assets/images/banner1.png',
-    'lib/assets/images/banner1.png',
-  ];
-  final List<String> banners2 = [
-    'lib/assets/images/banner2.png',
-    'lib/assets/images/banner2.png',
-  ];
 
   @override
   void initState() {
@@ -34,6 +26,7 @@ class _HomePageState extends State<HomePage> {
     context.read<ProductBloc>().add(GetProducts());
     context.read<BestsellerProductBloc>().add(GetBestsellerProduct());
     context.read<TopratedProductBloc>().add(GetTopratedProduct());
+    context.read<WarungBloc>().add(GetWarungs());
     super.initState();
   }
 
@@ -119,7 +112,17 @@ class _HomePageState extends State<HomePage> {
             },
           ),
           SizedBox(height: 16),
-          BannerSlider(items: banners1),
+          BlocBuilder<WarungBloc, WarungState>(
+            builder: (context, state) {
+              if (state is GetWarungLoadingState) {
+                return Center(child: CircularProgressIndicator());
+              } else if (state is GetWarungLoadedState) {
+                return BannerSlider(warungs: state.warung);
+              } else {
+                return Container();
+              }
+            },
+          ),
           SizedBox(height: 22),
           TitleContent(
             title: 'Categories',

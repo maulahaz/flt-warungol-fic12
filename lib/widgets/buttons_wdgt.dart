@@ -96,6 +96,13 @@ class MyButtons {
         outlined: false, gradiented: false);
   }
 
+  static Widget secondary(
+      BuildContext context, String label, Function() function) {
+    return showMyButtons(
+        context, label, kAppSecondary, kAppSecondary2, function,
+        outlined: false, gradiented: false);
+  }
+
   static Widget warning(
       BuildContext context, String label, Function() function) {
     return showMyButtons(context, label, kBlack, kBSWarning, function,
@@ -116,6 +123,13 @@ class MyButtons {
   static Widget primaryOutlined(
       BuildContext context, String label, Function() function) {
     return showMyButtons(context, label, kBlack, kAppPrimary, function,
+        outlined: true, gradiented: false);
+  }
+
+  static Widget secondaryOutlined(
+      BuildContext context, String label, Function() function) {
+    return showMyButtons(
+        context, label, kAppSecondary, kAppInversePrimary, function,
         outlined: true, gradiented: false);
   }
 

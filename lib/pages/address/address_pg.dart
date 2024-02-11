@@ -54,31 +54,40 @@ class _AddressPageState extends State<AddressPage> {
               if (state is GetAddressLoadedState) {
                 List<Address> addresses = state.dataOutput;
                 // int selectedIndex = 0;
-                return ListView.separated(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: addresses.length,
-                  itemBuilder: (context, index) {
-                    int selectedIndex = addresses
-                        .indexWhere((element) => element.isDefault == index);
-                    return AddressTile(
-                      isSelected: selectedIndex == index,
-                      data: addresses[index],
-                      onTap: () {
-                        selectedIndex = index;
-                        print(selectedIndex.toString());
-                        setState(() {});
-                      },
-                      onEditTap: () {
-                        context.goNamed(
-                          'addressEdit',
-                          extra: addresses[index],
+                return BlocBuilder<CartBloc, CartState>(
+                  builder: (context, state) {
+                    final addressId =
+                        (state is AddItemLoadedState) ? state.addressId : 0;
+                    return ListView.separated(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: addresses.length,
+                      itemBuilder: (context, index) {
+                        // int selectedIndex = addresses.indexWhere((element) => element.isDefault == index);
+                        return AddressTile(
+                          isSelected: addressId == addresses[index].id,
+                          // isSelected: selectedIndex == index,
+                          data: addresses[index],
+                          onTap: () {
+                            context
+                                .read<CartBloc>()
+                                .add(AddAddressId(addresses[index].id!));
+                            // selectedIndex = index;
+                            // print(selectedIndex.toString());
+                            // setState(() {});
+                          },
+                          onEditTap: () {
+                            context.goNamed(
+                              'addressEdit',
+                              extra: addresses[index],
+                            );
+                          },
                         );
                       },
+                      separatorBuilder: (context, index) =>
+                          const SizedBox(height: 16),
                     );
                   },
-                  separatorBuilder: (context, index) =>
-                      const SizedBox(height: 16),
                 );
               } else if (state is GetAddressLoadingState) {
                 return Center(child: CircularProgressIndicator());
@@ -108,11 +117,22 @@ class _AddressPageState extends State<AddressPage> {
                     fontSize: 16.0,
                   ),
                 ),
-                Text(
-                  20000.currencyFormatRp,
-                  style: const TextStyle(
-                    fontSize: 16.0,
-                  ),
+                BlocBuilder<CartBloc, CartState>(
+                  builder: (context, state) {
+                    final total = (state is AddItemLoadedState)
+                        ? state.dataOutput.fold<int>(
+                            0,
+                            (previousValue, element) =>
+                                previousValue +
+                                (element.qty * element.product.price!))
+                        : 0;
+                    return Text(
+                      total.currencyFormatRp,
+                      style: const TextStyle(
+                        fontSize: 16.0,
+                      ),
+                    );
+                  },
                 ),
               ],
             ),

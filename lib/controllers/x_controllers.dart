@@ -16,3 +16,5 @@ export 'address/city_bloc.dart';
 export 'address/subdistrict_bloc.dart';
 //--Order:
 export 'order/shipping_cost_bloc.dart';
+//--Warung:
+export 'warung/warung_bloc.dart';

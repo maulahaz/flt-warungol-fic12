@@ -74,9 +74,9 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
           const SizedBox(height: 36.0),
           //--Select Shipping:
           const SelectShipping(),
-          const SizedBox(height: 12.0),
+          // const SizedBox(height: 12.0),
           //--Shipping Selected:
-          const ShippingSelected(),
+          // const ShippingSelected(),
           //--
           const SizedBox(height: 36.0),
           const Divider(),
@@ -177,7 +177,7 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
           ),
           const SizedBox(height: 20.0),
           MyButtons.primary(context, 'Go to payment', () {
-            context.goNamed('paymentDetail');
+            context.goNamed('payment');
           })
         ],
       ),

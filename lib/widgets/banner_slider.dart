@@ -2,10 +2,12 @@ import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 
 import '../configs/x_configs.dart';
+import '../models/x_models.dart';
 
 class BannerSlider extends StatefulWidget {
-  final List<String> items;
-  const BannerSlider({super.key, required this.items});
+  // final List<String> items;
+  final List<Warung> warungs;
+  const BannerSlider({super.key, required this.warungs});
 
   @override
   State<BannerSlider> createState() => _BannerSliderState();
@@ -20,13 +22,22 @@ class _BannerSliderState extends State<BannerSlider> {
     return Column(
       children: [
         CarouselSlider(
-          items: widget.items
-              .map((e) => Image.asset(
-                    e,
-                    height: 206.0,
-                    width: MediaQuery.of(context).size.width,
-                    fit: BoxFit.fill,
-                  ))
+          items: widget.warungs
+              .map(
+                // (e) => Image.asset(
+                //   e.logo!,
+                //   height: 206.0,
+                //   width: MediaQuery.of(context).size.width,
+                //   fit: BoxFit.fill,
+                // ),
+                (e) => Image.network(
+                  e.logo!.contains('http')
+                      ? e.logo!
+                      : BASE_URL_IMAGE + 'warung/' + e.logo!,
+                  height: 206,
+                  fit: BoxFit.fill,
+                ),
+              )
               .toList(),
           carouselController: _controller,
           options: CarouselOptions(
@@ -42,7 +53,7 @@ class _BannerSliderState extends State<BannerSlider> {
         SizedBox(height: 22),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: widget.items.asMap().entries.map((entry) {
+          children: widget.warungs.asMap().entries.map((entry) {
             return GestureDetector(
               onTap: () => _controller.animateToPage(entry.key),
               child: Container(
