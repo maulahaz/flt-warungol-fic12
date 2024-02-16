@@ -176,8 +176,22 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
             ],
           ),
           const SizedBox(height: 20.0),
-          MyButtons.primary(context, 'Go to payment', () {
-            context.goNamed('payment');
+          BlocBuilder<CartBloc, CartState>(
+            builder: (context, state) {
+              final selectedShipment =
+                  (state is AddItemLoadedState) ? state.shippingService : '';
+              if (selectedShipment == '') {
+                return MyButtons.disabled(context, 'Go to payment');
+              } else {
+                return MyButtons.primary(context, 'Go to payment', () {
+                  context.goNamed('payment');
+                });
+              }
+            },
+          ),
+          const SizedBox(height: 20.0),
+          MyButtons.primaryOutlined(context, 'Shop Again', () {
+            context.goNamed('root');
           })
         ],
       ),

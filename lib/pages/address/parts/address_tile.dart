@@ -26,6 +26,7 @@ class AddressTile extends StatelessWidget {
         // padding: EdgeInsets.only(bottom: 20),
         decoration: BoxDecoration(
           gradient: kAppGradientPrim,
+          border: Border.all(color: kAppPrimary),
           borderRadius: const BorderRadius.all(Radius.circular(12.0)),
           boxShadow: isSelected
               ? [

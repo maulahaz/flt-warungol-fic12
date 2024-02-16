@@ -23,10 +23,11 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     searchController = TextEditingController();
+    // final authData =  AuthLocalData.getAuthData();
     context.read<ProductBloc>().add(GetProducts());
     context.read<BestsellerProductBloc>().add(GetBestsellerProduct());
     context.read<TopratedProductBloc>().add(GetTopratedProduct());
-    context.read<WarungBloc>().add(GetWarungs());
+    // context.read<WarungBloc>().add(GetWarungs());
     super.initState();
   }
 
@@ -157,7 +158,7 @@ class _HomePageState extends State<HomePage> {
           ),
           // SizedBox(height: 50),
           // BannerSlider(items: banners2),
-          SizedBox(height: 28),
+          SizedBox(height: 22),
           BlocBuilder<BestsellerProductBloc, BestsellerProductState>(
             builder: (context, state) {
               if (state is BestsellerLoadingState) {
@@ -188,7 +189,7 @@ class _HomePageState extends State<HomePage> {
           //   onSeeAllTap: () {},
           //   items: newArrivals,
           // ),
-          SizedBox(height: 50),
+          SizedBox(height: 22),
           BlocBuilder<TopratedProductBloc, TopratedProductState>(
             builder: (context, state) {
               if (state is TopratedLoadingState) {

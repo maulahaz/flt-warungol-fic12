@@ -12,6 +12,7 @@ class WarungBloc extends Bloc<WarungEvent, WarungState> {
     //--Get Warungs:
     on<GetWarungs>((event, emit) async {
       emit(GetWarungLoadingState());
+      // await Future.delayed(Duration(seconds: 5));
       final response = await WarungRemoteData.getWarung();
       response.fold((L) => emit(GetWarungErrorState(L)), (R) {
         if (R.data!.isEmpty) {

@@ -67,7 +67,11 @@ class CartPage extends StatelessWidget {
                     Text('Your cart is empty'),
                     SizedBox(height: 20),
                     MyButtons.warning(context, 'Add your cart',
-                        () => context.pushNamed('root')),
+                        () => context.pushNamed('root')
+                        // () => context
+                        //     .read<OrderStatusBloc>()
+                        //     .add(GetOrderStatus(orderId: 20)),
+                        ),
                   ],
                 ),
               );
@@ -107,6 +111,7 @@ class CartPage extends StatelessWidget {
                             return Text(
                               total.currencyFormatRp,
                               style: const TextStyle(
+                                color: kAppSecondary,
                                 fontSize: 16,
                                 fontWeight: FontWeight.w600,
                               ),

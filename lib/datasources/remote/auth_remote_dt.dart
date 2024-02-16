@@ -9,7 +9,7 @@ import '../local/x_locals.dart';
 
 class AuthRemoteData {
 //
-  //--Get Authorization Data:
+  //--Signup:
   // ========================================================================
   static Future<Either<String, AuthModel>> signup(data) async {
     var url = Uri.parse(BASE_URL + '/api/register');

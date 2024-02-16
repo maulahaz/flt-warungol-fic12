@@ -12,6 +12,7 @@ class MyButtons {
     Function() function, {
     required bool outlined,
     required bool gradiented,
+    Color? strokeColor,
     Widget? hasIcon,
     bool isLoading = false,
   }) {
@@ -61,7 +62,8 @@ class MyButtons {
             color: outlined ? kTransparent : bgColor,
             gradient: gradiented ? kAppGradientPrim : null,
             borderRadius: BorderRadius.all(Radius.circular(10)),
-            border: outlined ? Border.all(color: bgColor, width: 2) : null),
+            border:
+                outlined ? Border.all(color: strokeColor!, width: 2) : null),
         child: isLoading
             ? Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -69,7 +71,7 @@ class MyButtons {
                   SizedBox(
                       width: 24,
                       height: 24,
-                      child: CircularProgressIndicator(color: kAppPrimary)),
+                      child: CircularProgressIndicator(color: kPrimary)),
                   SizedBox(width: 10),
                   Text(label, style: getFont(16, color: txColor)),
                 ],
@@ -123,20 +125,20 @@ class MyButtons {
   static Widget primaryOutlined(
       BuildContext context, String label, Function() function) {
     return showMyButtons(context, label, kBlack, kAppPrimary, function,
-        outlined: true, gradiented: false);
+        outlined: true, gradiented: false, strokeColor: kAppInversePrimary);
   }
 
   static Widget secondaryOutlined(
       BuildContext context, String label, Function() function) {
     return showMyButtons(
-        context, label, kAppSecondary, kAppInversePrimary, function,
-        outlined: true, gradiented: false);
+        context, label, kAppSecondary, kAppSecondary2, function,
+        outlined: true, gradiented: false, strokeColor: kAppInversePrimary);
   }
 
   static Widget dangerOutlined(
       BuildContext context, String label, Function() function) {
     return showMyButtons(context, label, kRed, kRed, function,
-        outlined: true, gradiented: false);
+        outlined: true, gradiented: false, strokeColor: kAppInversePrimary);
   }
 
   static Widget primaryGradiented(
@@ -146,7 +148,7 @@ class MyButtons {
   }
 
   static Widget isLoading(BuildContext context, String label) {
-    return showMyButtons(context, label, kAppInversePrimary, kGrey, () {},
+    return showMyButtons(context, label, kWhite, kGrey, () {},
         outlined: false, gradiented: false, isLoading: true);
   }
 

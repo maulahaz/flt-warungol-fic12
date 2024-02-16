@@ -3,7 +3,6 @@ import 'package:flt_warungol_fic12/helpers/x_helpers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:go_router/go_router.dart';
 import 'package:badges/badges.dart' as badges;
 
 import '../../../configs/x_configs.dart';
@@ -17,11 +16,11 @@ class ProductCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.goNamed(
-          'productDetail',
-          // pathParameters: PathParameters().toMap(),
-          // extra: data,
-        );
+        // context.goNamed(
+        //   'productDetail',
+        // pathParameters: PathParameters().toMap(),
+        // extra: data,
+        // );
       },
       child: Stack(
         children: [

@@ -1,8 +1,12 @@
+import 'package:flt_warungol_fic12/controllers/auth/signup_bloc.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../configs/x_configs.dart';
+import '../../controllers/x_controllers.dart';
+import '../../datasources/local/x_locals.dart';
 import '../../models/x_models.dart';
 import '../../widgets/x_widgets.dart';
 import 'x_auths.dart';
@@ -16,30 +20,12 @@ class SignupPage extends StatefulWidget {
 
 class _SignupPageState extends State<SignupPage> {
   TypeLoginIs typeLogin = TypeLoginIs.email; //phoneNumber;
-  final phoneController = TextEditingController();
+  final nameController = TextEditingController();
   final emailController = TextEditingController();
+  final phoneController = TextEditingController();
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
-  final countries = [
-    CountryModel(
-      name: 'Indonesia',
-      flag:
-          'https://upload.wikimedia.org/wikipedia/commons/0/0b/Flag_of_Indonesia.png',
-      phoneCode: 62,
-    ),
-    CountryModel(
-      name: 'Spanish',
-      flag:
-          'https://w7.pngwing.com/pngs/124/420/png-transparent-flag-of-spain-spanish-language-education-english-translation-spain-flag-miscellaneous-flag-text.png',
-      phoneCode: 34,
-    ),
-    CountryModel(
-      name: 'English',
-      flag:
-          'https://upload.wikimedia.org/wikipedia/commons/f/fc/Flag_of_Great_Britain_%28English_version%29.png',
-      phoneCode: 44,
-    ),
-  ];
+
   late CountryModel selectedCountry;
 
   @override
@@ -50,8 +36,9 @@ class _SignupPageState extends State<SignupPage> {
 
   @override
   void dispose() {
-    phoneController.dispose();
+    nameController.dispose();
     emailController.dispose();
+    phoneController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
     super.dispose();
@@ -87,6 +74,25 @@ class _SignupPageState extends State<SignupPage> {
           if (typeLogin.isEmail) ...[
             const SizedBox(height: 60.0),
             TextFormField(
+              controller: nameController,
+              decoration: InputDecoration(
+                labelText: 'Full Name',
+                labelStyle: const TextStyle(color: kAppInversePrimary),
+                prefixIcon: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: SvgPicture.asset(
+                    'lib/assets/icons/person.svg',
+                    height: 24,
+                    colorFilter: const ColorFilter.mode(
+                      kAppInversePrimary,
+                      BlendMode.srcIn,
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20.0),
+            TextFormField(
               controller: emailController,
               keyboardType: TextInputType.emailAddress,
               decoration: InputDecoration(
@@ -97,6 +103,26 @@ class _SignupPageState extends State<SignupPage> {
                   child: SvgPicture.asset(
                     'lib/assets/icons/email.svg',
                     height: 24,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20.0),
+            TextFormField(
+              controller: phoneController,
+              keyboardType: TextInputType.phone,
+              decoration: InputDecoration(
+                labelText: 'Phone Number',
+                labelStyle: const TextStyle(color: kAppInversePrimary),
+                prefixIcon: Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: SvgPicture.asset(
+                    'lib/assets/icons/phone-svgrepo-com.svg',
+                    height: 24,
+                    colorFilter: const ColorFilter.mode(
+                      kAppInversePrimary,
+                      BlendMode.srcIn,
+                    ),
                   ),
                 ),
               ),
@@ -134,9 +160,33 @@ class _SignupPageState extends State<SignupPage> {
               ),
             ),
             const SizedBox(height: 50.0),
-            MyButtons.primary(context, 'Signup', () {
-              context.goNamed('/');
-            }),
+            BlocConsumer<SignupBloc, SignupState>(
+              listener: (context, state) {
+                if (state is SignupValidation) {
+                  MySnackbar.danger(context, 'Fail', state.value!);
+                } else if (state is SignupErrorState) {
+                  MySnackbar.danger(context, 'Error', state.error!);
+                } else if (state is SignupSuccessState) {
+                  AuthLocalData.saveAuthData(state.dataOutput);
+                  context.goNamed('orderDetail');
+                }
+              },
+              builder: (context, state) {
+                if (state is SignupLoadingState) {
+                  return MyButtons.isLoading(context, '...Loading');
+                } else {
+                  return MyButtons.primary(context, 'Signup', () {
+                    print('---Signup');
+                    context.read<SignupBloc>().add(GetSignup(
+                          fullname: nameController.text,
+                          email: emailController.text,
+                          phoneNumber: phoneController.text,
+                          password: passwordController.text,
+                        ));
+                  });
+                }
+              },
+            ),
           ] else if (typeLogin.isPhoneNumber) ...[
             const SizedBox(height: 80.0),
             TextFormField(
@@ -192,7 +242,7 @@ class _SignupPageState extends State<SignupPage> {
           const SizedBox(height: 50.0),
           MyButtons.primaryIconned(context, 'Signup with Google',
               Image.asset('lib/assets/images/google.png', width: 20), () {
-            context.goNamed('/');
+            context.goNamed('root');
           }),
           const SizedBox(height: 50.0),
           InkWell(
@@ -213,6 +263,32 @@ class _SignupPageState extends State<SignupPage> {
                     style: TextStyle(
                       color: kAppInversePrimary,
                       fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          const SizedBox(height: 20.0),
+          InkWell(
+            onTap: () {
+              context.goNamed('root');
+            },
+            child: Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Continue Shopping, ',
+                    style: TextStyle(
+                      color: kAppInversePrimary,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  TextSpan(
+                    text: 'I will signup later',
+                    style: TextStyle(
+                      color: kAppInversePrimary.withOpacity(.8),
                     ),
                   ),
                 ],

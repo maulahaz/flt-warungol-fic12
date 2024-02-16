@@ -10,9 +10,19 @@ import '../pages/payment/x_payments.dart';
 
 class AppRouter {
   final router = GoRouter(
-    initialLocation: '/intro',
-    // initialLocation: '/root',
+    // initialLocation: '/intro',
+    // initialLocation: '/payment-waiting',
+    initialLocation: '/root',
     routes: [
+      // GoRoute(
+      //   name: 'paymentWaiting',
+      //   path: '/payment-waiting',
+      //   builder: (context, state) {
+      //     final orderId = 20;
+      //     //state.extra as int;
+      //     return PaymentWaitingPage(orderId: orderId);
+      //   },
+      // ),
       GoRoute(
         name: 'intro',
         path: '/intro',
@@ -35,7 +45,9 @@ class AppRouter {
         path: '/root',
         builder: (context, state) {
           final tab = 0;
+          // int tab = state.extra as int;
           return DashboardPage(currentTab: tab);
+          // return DashboardPage(currentTab: state.pathParameters['tab'] as int);
         },
         routes: [
           GoRoute(
@@ -53,22 +65,26 @@ class AppRouter {
                         path: 'payment',
                         builder: (context, state) => const PaymentPage(),
                         routes: [
-                          // GoRoute(
-                          //   name: 'paymentWaiting',
-                          //   path: 'payment-waiting',
-                          //   builder: (context, state) => PaymentWaitingPage(),
-                          // ),
+                          GoRoute(
+                            name: 'paymentWaiting',
+                            path: 'payment-waiting',
+                            builder: (context, state) {
+                              final orderId = state.extra as int;
+                              return PaymentWaitingPage(orderId: orderId);
+                            },
+                          ),
                           // GoRoute(
                           //   name: 'trackingOrder',
                           //   path: 'tracking-order',
                           //   builder: (context, state) => TrackingOrderPage(),
-                          // routes: [
-                          //   GoRoute(
-                          //     name: 'shippingDetail',
-                          //     path: 'shipping-detail',
-                          //     builder: (context, state) => const ShippingDetailPage(),
-                          //   ),
-                          // ],
+                          //   routes: [
+                          //     GoRoute(
+                          //       name: 'shippingDetail',
+                          //       path: 'shipping-detail',
+                          //       builder: (context, state) =>
+                          //           const ShippingDetailPage(),
+                          //     ),
+                          //   ],
                           // ),
                         ])
                   ])

@@ -53,15 +53,6 @@ String validateLogin(GetSignin data) {
 //=============================================================================
 sealed class AuthEvent {}
 
-class GetSignup extends AuthEvent {
-  final String? fullname;
-  final String? email;
-  final String? phoneNumber;
-  final String? password;
-
-  GetSignup({this.fullname, this.email, this.phoneNumber, this.password});
-}
-
 class GetSignin extends AuthEvent {
   final String? email;
   final String? password;

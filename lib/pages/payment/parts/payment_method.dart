@@ -22,10 +22,9 @@ class PaymentMethod extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(24.0),
         decoration: BoxDecoration(
-          // borderRadius: const BorderRadius.all(Radius.circular(10.0)),
-          // border: Border.all(color: kAppSecondary),
+          gradient: kAppGradientPrim,
           borderRadius: BorderRadius.circular(10),
-          border: Border.all(color: kBlack.withOpacity(0.2)),
+          border: Border.all(color: kAppPrimary),
         ),
         child: Row(
           children: [

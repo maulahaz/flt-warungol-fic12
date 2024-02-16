@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import '../../configs/x_configs.dart';
 import 'x_addresses.dart';
 
 class AddressPage extends StatefulWidget {
@@ -129,6 +130,8 @@ class _AddressPageState extends State<AddressPage> {
                     return Text(
                       total.currencyFormatRp,
                       style: const TextStyle(
+                        color: kAppSecondary,
+                        fontWeight: FontWeight.w600,
                         fontSize: 16.0,
                       ),
                     );
@@ -137,9 +140,19 @@ class _AddressPageState extends State<AddressPage> {
               ],
             ),
             const SizedBox(height: 12.0),
-            MyButtons.primary(context, 'Continue', () {
-              context.goNamed('orderDetail');
-            }),
+            BlocBuilder<CartBloc, CartState>(
+              builder: (context, state) {
+                final selectedAddress =
+                    (state is AddItemLoadedState) ? state.addressId : 0;
+                if (selectedAddress == 0) {
+                  return MyButtons.disabled(context, 'Continue');
+                } else {
+                  return MyButtons.primary(context, 'Continue', () {
+                    context.goNamed('orderDetail');
+                  });
+                }
+              },
+            ),
           ],
         ),
       ),

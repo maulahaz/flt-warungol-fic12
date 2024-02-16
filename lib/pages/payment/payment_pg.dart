@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import '../../configs/x_configs.dart';
 import '../../controllers/x_controllers.dart';
 import '../../datasources/local/bank_dt.dart';
+import '../../models/x_models.dart';
 import '../../widgets/x_widgets.dart';
 import 'x_payments.dart';
 
@@ -15,8 +16,6 @@ class PaymentPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final selectedPayment = ValueNotifier<int>(0);
-
-    // List<BankAccountModel> banksLimit = [banks[0], banks[1], banks[3]];
 
     void seeAllTap() {
       showModalBottomSheet(
@@ -200,7 +199,7 @@ class PaymentPage extends StatelessWidget {
               ),
               const Spacer(),
               InkWell(
-                onTap: seeAllTap,
+                onTap: null, //seeAllTap,
                 child: const Text(
                   'See All',
                   style: TextStyle(
@@ -260,11 +259,22 @@ class PaymentPage extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              Text(
-                375000.currencyFormatRp,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w600,
-                ),
+              BlocBuilder<CartBloc, CartState>(
+                builder: (context, state) {
+                  final total = (state is AddItemLoadedState)
+                      ? state.dataOutput.fold<int>(
+                          0,
+                          (previousValue, element) =>
+                              previousValue +
+                              (element.qty * element.product.price!))
+                      : 0;
+                  return Text(
+                    total.currencyFormatRp,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  );
+                },
               ),
             ],
           ),
@@ -272,17 +282,23 @@ class PaymentPage extends StatelessWidget {
           Row(
             children: [
               const Text(
-                'Service Charge',
+                'Shipping Cost',
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
                 ),
               ),
               const Spacer(),
-              Text(
-                2000.currencyFormatRp,
-                style: const TextStyle(
-                  fontWeight: FontWeight.w600,
-                ),
+              BlocBuilder<CartBloc, CartState>(
+                builder: (context, state) {
+                  final shippingCost =
+                      (state is AddItemLoadedState) ? state.shippingCost : 0;
+                  return Text(
+                    shippingCost.currencyFormatRp,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  );
+                },
               ),
             ],
           ),
@@ -299,20 +315,73 @@ class PaymentPage extends StatelessWidget {
                 ),
               ),
               const Spacer(),
-              Text(
-                377000.currencyFormatRp,
-                style: const TextStyle(
-                  color: kAppSecondary,
-                  fontWeight: FontWeight.w600,
-                ),
+              BlocBuilder<CartBloc, CartState>(
+                builder: (context, state) {
+                  final grandTotal = (state is AddItemLoadedState)
+                      ? state.dataOutput.fold<int>(
+                              0,
+                              (previousValue, element) =>
+                                  previousValue +
+                                  (element.qty * element.product.price!)) +
+                          state.shippingCost
+                      : 0;
+                  return Text(
+                    grandTotal.currencyFormatRp,
+                    style: const TextStyle(
+                      color: kAppSecondary,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  );
+                },
               ),
             ],
           ),
           const SizedBox(height: 20.0),
-          MyButtons.primary(context, 'Pay Now', () {
-            buyNowTap();
-            context.goNamed('xxx');
-          })
+          BlocBuilder<CartBloc, CartState>(
+            builder: (context, state) {
+              final addressId =
+                  (state is AddItemLoadedState) ? state.addressId : 0;
+              final shippingService =
+                  (state is AddItemLoadedState) ? state.shippingService : '';
+              final paymentMethod =
+                  (state is AddItemLoadedState) ? state.paymentMethod : '';
+              final shippingCost =
+                  (state is AddItemLoadedState) ? state.shippingCost : 0;
+              final productQty =
+                  (state is AddItemLoadedState) ? state.dataOutput : [];
+
+              final selectedPayment =
+                  (state is AddItemLoadedState) ? state.paymentVAName : '';
+              if (selectedPayment == '') {
+                return MyButtons.disabled(context, 'Pay Now');
+              } else {
+                return BlocListener<OrderBloc, OrderState>(
+                  listener: (context, state) {
+                    if (state is MakeOrderInitialState) {
+                      MyButtons.isLoading(context, '...Loading');
+                    } else if (state is MakeOrderErrorState) {
+                      MySnackbar.danger(context, 'Error', state.error!);
+                    } else if (state is MakeOrderLoadedState) {
+                      context.pushNamed('paymentWaiting',
+                          extra: state.order.data!.id);
+                    }
+                  },
+                  child: MyButtons.primary(context, 'Pay Now', () {
+                    // buyNowTap();
+                    // selectedPayment.isEmpty
+                    context.read<OrderBloc>().add(MakeOrder(
+                          addressId: addressId,
+                          paymentMethod: paymentMethod,
+                          shippingService: shippingService,
+                          shippingCost: shippingCost,
+                          paymentVAName: selectedPayment,
+                          productQty: productQty as List<ProductQuantityModel>,
+                        ));
+                  }),
+                );
+              }
+            },
+          )
         ],
       ),
     );

@@ -7,10 +7,10 @@ import '../profile/x_profiles.dart';
 import '../x_pages.dart';
 
 class DashboardPage extends StatefulWidget {
-  final int currentTab;
+  final int? currentTab;
   const DashboardPage({
     Key? key,
-    required this.currentTab,
+    this.currentTab = 0,
   }) : super(key: key);
 
   @override
@@ -43,7 +43,7 @@ class _DashboardPageState extends State<DashboardPage> {
 
   @override
   void initState() {
-    _selectedIndex = widget.currentTab;
+    _selectedIndex = widget.currentTab!;
     super.initState();
   }
 

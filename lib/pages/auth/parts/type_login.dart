@@ -29,6 +29,7 @@ class SelectTypeLogin extends StatelessWidget {
       decoration: ShapeDecoration(
         color: kAppSecondary2,
         shape: RoundedRectangleBorder(
+          side: BorderSide(color: kAppPrimary),
           borderRadius: BorderRadius.circular(10.0),
         ),
       ),

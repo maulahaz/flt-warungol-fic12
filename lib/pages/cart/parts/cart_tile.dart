@@ -35,8 +35,9 @@ class CartTile extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 10.0),
           decoration: BoxDecoration(
+            gradient: kAppGradientPrim,
             borderRadius: BorderRadius.circular(10),
-            border: Border.all(color: kBlack.withOpacity(0.2)),
+            border: Border.all(color: kAppPrimary),
           ),
           child: Stack(
             alignment: Alignment.bottomRight,

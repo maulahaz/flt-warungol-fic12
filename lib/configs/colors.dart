@@ -13,9 +13,9 @@ const kTransparent = Colors.transparent;
 
 //--App Colors Pallets:
 const kPrimary = Color.fromRGBO(224, 224, 224, 1);
-const kAppPrimary = kWhite;
+const kAppPrimary = kWhite; //--Utk: Border Gradient
 const kAppInversePrimary = Color.fromRGBO(97, 97, 97, 1);
-const kAppSecondary = Color.fromARGB(255, 53, 128, 119);
+const kAppSecondary = Color.fromARGB(255, 53, 128, 119); //--Utk: Total
 const kAppSecondary2 = Color.fromARGB(255, 243, 234, 233);
 const kAppSecondary2Dark = Color.fromARGB(255, 248, 196, 191);
 

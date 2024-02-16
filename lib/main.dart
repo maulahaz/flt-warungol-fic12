@@ -1,11 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:firebase_core/firebase_core.dart';
+import 'firebase_options.dart';
+
 import 'configs/x_configs.dart';
 import 'controllers/x_controllers.dart';
 import 'router/app_router.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -25,12 +32,15 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => TopratedProductBloc()),
         BlocProvider(create: (context) => CartBloc()),
         BlocProvider(create: (context) => AuthBloc()),
+        BlocProvider(create: (context) => SignupBloc()),
         BlocProvider(create: (context) => AddressBloc()),
         BlocProvider(create: (context) => AddressCubit()),
         BlocProvider(create: (context) => ProvinceBloc()),
         BlocProvider(create: (context) => CityBloc()),
         BlocProvider(create: (context) => SubdistrictBloc()),
         BlocProvider(create: (context) => ShippingCostBloc()),
+        BlocProvider(create: (context) => OrderBloc()),
+        BlocProvider(create: (context) => OrderStatusBloc()),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

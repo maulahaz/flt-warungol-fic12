@@ -54,6 +54,11 @@ class CartBloc extends Bloc<CartEvent, CartState> {
       }
     });
 
+    //--Empty cart:
+    on<EmptyCart>((event, emit) {
+      emit(AddItemLoadedState([], 0, '', '', 0, ''));
+    });
+
     //--Add AddressId to cart:
     on<AddAddressId>((event, emit) async {
       final currentState = state as AddItemLoadedState;
@@ -112,6 +117,8 @@ class RemoveItem extends CartEvent {
     this.product,
   );
 }
+
+class EmptyCart extends CartEvent {}
 
 class AddAddressId extends CartEvent {
   int addressId;

@@ -150,7 +150,8 @@ class _SigninPageState extends State<SigninPage> {
                   MySnackbar.danger(context, 'Error', state.error!);
                 } else if (state is AuthSignedInState) {
                   AuthLocalData.saveAuthData(state.dataOutput);
-                  context.goNamed('orderDetail');
+                  // context.goNamed('orderDetail');
+                  context.goNamed('root');
                 }
               },
               builder: (context, state) {
@@ -179,7 +180,7 @@ class _SigninPageState extends State<SigninPage> {
           ),
           const SizedBox(height: 50.0),
           MyButtons.primary(context, 'Signin with Google', () {
-            context.goNamed('/');
+            context.goNamed('root');
           }),
           // Button.outlined(
           //   onPressed: () {},
@@ -205,6 +206,32 @@ class _SigninPageState extends State<SigninPage> {
                     style: TextStyle(
                       color: kAppInversePrimary,
                       fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ),
+          const SizedBox(height: 20.0),
+          InkWell(
+            onTap: () {
+              context.goNamed('root');
+            },
+            child: Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
+                    text: 'Continue Shopping, ',
+                    style: TextStyle(
+                      color: kAppInversePrimary,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  TextSpan(
+                    text: 'I will signin later',
+                    style: TextStyle(
+                      color: kAppInversePrimary.withOpacity(.8),
                     ),
                   ),
                 ],

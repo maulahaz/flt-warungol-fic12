@@ -19,5 +19,7 @@ export 'subdistrict_mdl.dart';
 export 'shipping_cost_mdl.dart';
 //--Order
 export 'shipping_mdl.dart';
+export 'order_request_mdl.dart';
+export 'order_mdl.dart';
 //--Payment
 export 'bank_account_mdl.dart';
