@@ -19,11 +19,26 @@ class CartBloc extends Bloc<CartEvent, CartState> {
         final newItems = currentState.dataOutput
             .map((e) => e == item ? newItem : e)
             .toList();
-        emit(AddItemLoadedState(newItems, 0, 'bank_transfer', '', 0, ''));
+
+        emit(AddItemLoadedState(
+            newItems,
+            currentState.addressId,
+            // 3,
+            'bank_transfer',
+            currentState.shippingService,
+            currentState.shippingCost,
+            ''));
       } else {
         final newItem = ProductQuantityModel(product: event.product, qty: 1);
         final newItems = [...currentState.dataOutput, newItem];
-        emit(AddItemLoadedState(newItems, 0, 'bank_transfer', '', 0, ''));
+        emit(AddItemLoadedState(
+            newItems,
+            currentState.addressId,
+            // 3,
+            'bank_transfer',
+            currentState.shippingService,
+            currentState.shippingCost,
+            ''));
       }
     });
 
@@ -41,7 +56,14 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           final newItems = currentState.dataOutput
               .where((element) => element.product.id != event.product.id)
               .toList();
-          emit(AddItemLoadedState(newItems, 0, 'bank_transfer', '', 0, ''));
+          emit(AddItemLoadedState(
+              newItems,
+              currentState.addressId,
+              // 3,
+              'bank_transfer',
+              currentState.shippingService,
+              currentState.shippingCost,
+              ''));
         }
         //--Or Remove 1 item from cart
         else {
@@ -49,7 +71,14 @@ class CartBloc extends Bloc<CartEvent, CartState> {
           final newItems = currentState.dataOutput
               .map((e) => e == item ? newItem : e)
               .toList();
-          emit(AddItemLoadedState(newItems, 0, 'bank_transfer', '', 0, ''));
+          emit(AddItemLoadedState(
+              newItems,
+              currentState.addressId,
+              // 3,
+              'bank_transfer',
+              currentState.shippingService,
+              currentState.shippingCost,
+              ''));
         }
       }
     });

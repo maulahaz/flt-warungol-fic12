@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:dartz/dartz.dart';
 import 'package:http/http.dart' as http;
 
@@ -88,6 +90,27 @@ class RajaongkirRemoteData {
       return right(ShippingCostModel.fromJson(response.body));
     } else {
       return left('Error');
+    }
+  }
+
+  //--Get Data Couriers:
+  // ========================================================================
+  static Future<Either<String, List<String>>> getCouriers() async {
+    try {
+      final url = Uri.parse('https://pro.rajaongkir.com/api/province');
+      final response = await http.get(
+        url,
+        headers: {'key': RAJAONGKIR_KEY},
+      );
+      // print(response.body);
+      final couriers = jsonDecode(response.body)['rajaongkir']['results'];
+      if (response.statusCode == 200) {
+        return right(couriers);
+      } else {
+        return left('Error');
+      }
+    } catch (e) {
+      return Left('Error: ' + e.toString());
     }
   }
 }

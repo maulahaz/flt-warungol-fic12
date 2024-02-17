@@ -25,8 +25,8 @@ class OrderRemoteData {
         },
         body: json.encode(orderRequestModel.toMap()),
       );
-      // print(orderRequestModel.paymentMethod);
-      // print(response.body);
+      print(orderRequestModel.paymentMethod);
+      print(response.body);
       if (response.statusCode == 200) {
         return Right(OrderModel.fromJson(response.body));
       } else {

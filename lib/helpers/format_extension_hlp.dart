@@ -9,10 +9,15 @@ extension IntegerExt on int {
       ).format(this);
 }
 
-//--STRING (CAPITALIZE):
-extension Capitalized on String {
+//--STRING (CAPITALIZE & TitleCase):
+extension StringExt on String {
   String capitalized() =>
       this.substring(0, 1).toUpperCase() + this.substring(1).toLowerCase();
+
+  String toTitleCase() => replaceAll(RegExp(' +'), ' ')
+      .split(' ')
+      .map((str) => str.capitalized())
+      .join(' ');
 }
 
 //--DATETIME:

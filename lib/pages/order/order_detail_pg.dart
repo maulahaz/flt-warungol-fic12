@@ -17,18 +17,26 @@ class OrderDetailPage extends StatefulWidget {
 }
 
 class _OrderDetailPageState extends State<OrderDetailPage> {
+  String initSelectedCourier = 'jne';
+  String selectedCourier = '';
+
   @override
   void initState() {
-    context.read<ShippingCostBloc>().add(GetShippingCosts(
-          origin: '5779',
-          destination: '2103',
-          courier: 'jne',
-        ));
+    // context.watch<CourierCubit>().state;
+    context.read<CourierCubit>().onSelectedCourier('-');
+    context.read<CourierServiceCubit>().onSelectedCourierService('-');
+    // context.read<ShippingCostBloc>().add(GetShippingCosts(
+    //       origin: '5779',
+    //       destination: '2103',
+    //       courier: initSelectedCourier,
+    //     ));
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
+    // final selectedCourier = 'jne';
+    // final selectedCourier = context.watch<CourierCubit>().state;
     return Scaffold(
       appBar: AppBar(
         title: const Text('Detail Orders'),
@@ -52,6 +60,8 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
           BlocBuilder<CartBloc, CartState>(
             builder: (context, state) {
               if (state is AddItemLoadedState) {
+                print('currentState.addressId');
+                print(state.addressId);
                 return ListView.separated(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -72,7 +82,10 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
             },
           ),
           const SizedBox(height: 36.0),
-          //--Select Shipping:
+          //--Select Courier:
+          const SelectCourier(),
+          const SizedBox(height: 12.0),
+          //--Select Shipping Type from Courier:
           const SelectShipping(),
           // const SizedBox(height: 12.0),
           //--Shipping Selected:
@@ -120,7 +133,8 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
           const SizedBox(height: 5.0),
           Row(
             children: [
-              const Text(
+              Text(
+                // 'Shipping cost \n(By. ${selectedCourier.toTitleCase()})',
                 'Shipping cost',
                 style: TextStyle(
                   fontWeight: FontWeight.w600,
@@ -180,12 +194,14 @@ class _OrderDetailPageState extends State<OrderDetailPage> {
             builder: (context, state) {
               final selectedShipment =
                   (state is AddItemLoadedState) ? state.shippingService : '';
-              if (selectedShipment == '') {
-                return MyButtons.disabled(context, 'Go to payment');
-              } else {
+              final courierService = context.watch<CourierServiceCubit>().state;
+              if (selectedShipment != '' && courierService != '-') {
                 return MyButtons.primary(context, 'Go to payment', () {
+                  // print('Shoipment $selectedShipment Service $courierService');
                   context.goNamed('payment');
                 });
+              } else {
+                return MyButtons.disabled(context, 'Go to payment');
               }
             },
           ),

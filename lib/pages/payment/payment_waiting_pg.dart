@@ -286,7 +286,12 @@ class _PaymentWaitingPageState extends State<PaymentWaitingPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            MyButtons.primary(context, 'Continue Shopping', () {
+            MyButtons.primaryOutlined(context, 'Start New Shopping', () {
+              //--Stop the timer:
+              _timer?.cancel();
+              //--Empty out the Cart:
+              context.read<CartBloc>().add(EmptyCart());
+              //--Back to Home:
               context.pushNamed('root');
             }),
             const SizedBox(height: 20.0),

@@ -12,7 +12,10 @@ class SelectShipping extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // final selectedCourier = 'jne';
     // final selectedPayment = ValueNotifier<int>(0);
+    final selectedCourier = context.watch<CourierCubit>().state;
+    print('Shipping $selectedCourier');
 
     void onSelectShippingTap() {
       showModalBottomSheet(
@@ -41,8 +44,8 @@ class SelectShipping extends StatelessWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    const Text(
-                      'Shipping Method',
+                    Text(
+                      'Shipping by: ${selectedCourier.toTitleCase()}',
                       style: TextStyle(
                         color: kAppInversePrimary,
                         fontSize: 20,
@@ -87,8 +90,8 @@ class SelectShipping extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 12.0),
-                const Text(
-                  'Arrive Estimation 20 - 23 January (Rp. 20.000)',
+                Text(
+                  'Select shipping option below: ',
                   style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.w600,
@@ -105,11 +108,18 @@ class SelectShipping extends StatelessWidget {
                         itemBuilder: (context, index) {
                           final item = state.shippingCost.rajaongkir!
                               .results![0].costs![index];
+
                           return ListTile(
                             contentPadding: EdgeInsets.zero,
                             onTap: () {
+                              //--Update Courier and Ship Cost:
                               context.read<CartBloc>().add(AddShippingService(
-                                  'jne', item.cost![0].value!));
+                                  selectedCourier, item.cost![0].value!));
+                              //--Update Courier Service:
+                              context
+                                  .read<CourierServiceCubit>()
+                                  .onSelectedCourierService(item.description!);
+                              //--Close this:
                               context.navPop();
                             },
                             title: Text(
@@ -124,32 +134,29 @@ class SelectShipping extends StatelessWidget {
                             .shippingCost.rajaongkir!.results![0].costs!.length,
                       );
                     } else if (state is GetShippingCostLoadingState) {
-                      return const Center(child: CircularProgressIndicator());
+                      return const Center(
+                          child: CircularProgressIndicator(
+                        color: kAppInversePrimary,
+                      ));
+                    } else if (state is GetShippingCostLoadingState) {
+                      return SizedBox(
+                        height: 30,
+                        child: Center(
+                          child: const Text('Please select another courier',
+                              style: TextStyle(color: kAppInversePrimary)),
+                        ),
+                      );
                     } else {
-                      return const SizedBox();
+                      return SizedBox(
+                        height: 30,
+                        child: Center(
+                          child: const Text('Please select courier',
+                              style: TextStyle(color: kAppInversePrimary)),
+                        ),
+                      );
                     }
                   },
                 ),
-                // ValueListenableBuilder(
-                //   valueListenable: selectedPayment,
-                //   builder: (context, value, _) => ListView.separated(
-                //     shrinkWrap: true,
-                //     physics: const NeverScrollableScrollPhysics(),
-                //     itemBuilder: (context, index) {
-                //       final item = shippings[index];
-                //       return ListTile(
-                //         contentPadding: EdgeInsets.zero,
-                //         onTap: () {},
-                //         title: Text('${item.type} (${item.priceFormat})'),
-                //         subtitle:
-                //             Text('Arrive Estimation ${item.estimateFormat}'),
-                //       );
-                //     },
-                //     separatorBuilder: (context, index) =>
-                //         const Divider(color: kAppInversePrimary),
-                //     itemCount: shippings.length,
-                //   ),
-                // ),
               ],
             ),
           );
@@ -158,21 +165,33 @@ class SelectShipping extends StatelessWidget {
     }
 
     return GestureDetector(
-      onTap: onSelectShippingTap,
+      onTap: (selectedCourier == '-') ? null : onSelectShippingTap,
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14.0, vertical: 20.0),
         decoration: BoxDecoration(
           border: Border.all(color: kAppInversePrimary),
           borderRadius: const BorderRadius.all(Radius.circular(10.0)),
         ),
-        child: const Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              'Shipment option',
-              style: TextStyle(fontSize: 16),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'Courier Service option',
+                  style: TextStyle(
+                      fontSize: 16,
+                      color: (selectedCourier == '-') ? kGrey : kBlack),
+                ),
+                Text(
+                  '${context.watch<CourierServiceCubit>().state}',
+                  style: TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
             ),
-            Icon(Icons.chevron_right),
+            Icon(Icons.chevron_right,
+                color: (selectedCourier == '-') ? kGrey : kBlack),
           ],
         ),
       ),

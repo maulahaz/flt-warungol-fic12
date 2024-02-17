@@ -369,6 +369,7 @@ class PaymentPage extends StatelessWidget {
                   child: MyButtons.primary(context, 'Pay Now', () {
                     // buyNowTap();
                     // selectedPayment.isEmpty
+                    // print(addressId);
                     context.read<OrderBloc>().add(MakeOrder(
                           addressId: addressId,
                           paymentMethod: paymentMethod,

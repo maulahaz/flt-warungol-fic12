@@ -35,6 +35,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => SignupBloc()),
         BlocProvider(create: (context) => AddressBloc()),
         BlocProvider(create: (context) => AddressCubit()),
+        BlocProvider(create: (context) => CourierCubit()),
+        BlocProvider(create: (context) => CourierServiceCubit()),
         BlocProvider(create: (context) => ProvinceBloc()),
         BlocProvider(create: (context) => CityBloc()),
         BlocProvider(create: (context) => SubdistrictBloc()),
