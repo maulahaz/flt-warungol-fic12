@@ -1,3 +1,4 @@
+import 'package:flt_warungol_fic12/datasources/remote/firebase_messaging_remote_dt.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -13,6 +14,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  await FirebaseMessagingRemoteData().init();
   runApp(const MyApp());
 }
 

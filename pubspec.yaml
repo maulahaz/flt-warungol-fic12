@@ -33,13 +33,15 @@ dependencies:
   carousel_slider: ^4.2.1
   cloud_firestore: null
   cupertino_icons: ^1.0.6
-  currency_text_input_formatter: ^2.1.13
+  currency_text_input_formatter:
   dartz: ^0.10.1
   firebase_auth: null
-  firebase_core: ^2.25.4
+  firebase_core:
+  firebase_messaging:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.3
+  flutter_local_notifications: ^16.3.2
   flutter_slidable: ^3.0.1
   flutter_svg: ^2.0.9
   glassmorphism: ^3.0.0

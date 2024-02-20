@@ -131,6 +131,14 @@ class ProfilePage extends StatelessWidget {
               }
             },
           ),
+          const SizedBox(height: 24.0),
+          ProfileMenu(
+            label: 'Signout X',
+            onPressed: () {
+              context.read<AuthBloc>().add(GetSignout());
+              context.goNamed('root', extra: 1);
+            },
+          )
         ],
       ),
     );
