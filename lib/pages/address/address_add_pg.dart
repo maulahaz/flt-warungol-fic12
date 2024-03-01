@@ -86,7 +86,6 @@ class _AddressAddPageState extends State<AddressAddPage> {
               }
             },
           ),
-
           const SizedBox(height: 24.0),
           BlocBuilder<CityBloc, CityState>(
             builder: (context, state) {
@@ -117,7 +116,6 @@ class _AddressAddPageState extends State<AddressAddPage> {
               }
             },
           ),
-
           const SizedBox(height: 24.0),
           BlocBuilder<SubdistrictBloc, SubdistrictState>(
             builder: (context, state) {
@@ -156,10 +154,10 @@ class _AddressAddPageState extends State<AddressAddPage> {
             label: 'Phone Number',
           ),
           const SizedBox(height: 24.0),
-
           BlocConsumer<AddressBloc, AddressState>(
             listener: (context, state) {
               if (state is AddAddressLoadedState) {
+                context.read<AddressBloc>().add(GetAddress());
                 context.goNamed('address');
               } else {}
             },

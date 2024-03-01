@@ -45,6 +45,8 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ShippingCostBloc()),
         BlocProvider(create: (context) => OrderBloc()),
         BlocProvider(create: (context) => OrderStatusBloc()),
+        BlocProvider(create: (context) => HistoryOrderBloc()),
+        BlocProvider(create: (context) => OrderDetailBloc()),
       ],
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,

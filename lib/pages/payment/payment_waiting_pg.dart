@@ -224,31 +224,47 @@ class _PaymentWaitingPageState extends State<PaymentWaitingPage> {
                               fontWeight: FontWeight.w700,
                             ),
                           );
+                        } else if (state is MakeOrderLoadingState) {
+                          return Center(child: CircularProgressIndicator());
                         } else {
-                          // return const SizedBox();
-                          return Text(
-                            '1234567789086544',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          );
+                          return Center(child: Text('Something went wrong'));
                         }
                       },
                     ),
                   ],
                 ),
-                MyButtons.primaryIconned(context, 'Copy',
-                    SvgPicture.asset('lib/assets/icons/copy.svg'), () {
-                  Clipboard.setData(const ClipboardData(text: 'test dong'))
-                      .then((_) {
-                    ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-                      content: Text('Copied to clipboard'),
-                      duration: Duration(seconds: 1),
-                      backgroundColor: kAppInversePrimary,
-                    ));
-                  });
-                }),
+                BlocBuilder<OrderBloc, OrderState>(
+                  builder: (context, state) {
+                    if (state is MakeOrderLoadedState) {
+                      return MyButtons.primaryIconned(context, 'Copy',
+                          SvgPicture.asset('lib/assets/icons/copy.svg'), () {
+                        Clipboard.setData(ClipboardData(
+                                text: state.order.data!.paymentVaNumber!))
+                            .then((_) {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content: Text('Copied to clipboard'),
+                            duration: Duration(seconds: 1),
+                            backgroundColor: kAppInversePrimary,
+                          ));
+                        });
+                      });
+                    } else {
+                      return MyButtons.primaryIconned(context, 'Copy',
+                          SvgPicture.asset('lib/assets/icons/copy.svg'), () {
+                        Clipboard.setData(ClipboardData(text: 'No Data'))
+                            .then((_) {
+                          ScaffoldMessenger.of(context)
+                              .showSnackBar(const SnackBar(
+                            content: Text('Copied to clipboard'),
+                            duration: Duration(seconds: 1),
+                            backgroundColor: kAppInversePrimary,
+                          ));
+                        });
+                      });
+                    }
+                  },
+                ),
               ],
             ),
             const SizedBox(height: 14.0),

@@ -60,4 +60,48 @@ class OrderRemoteData {
       return Left('Error: ' + e.toString());
     }
   }
+
+  //--Get History Order:
+  // ========================================================================
+  static Future<Either<String, HistoryOrderModel>> getHistoryOrder() async {
+    try {
+      final authData = await AuthLocalData.getAuthData();
+      var url = Uri.parse(BASE_URL + '/api/order/user/${authData.user.id}');
+      var response = await http.get(url, headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${authData.accessToken}',
+      });
+      final orderList = HistoryOrderModel.fromJson(response.body);
+      if (response.statusCode == 200) {
+        return Right(orderList);
+      } else {
+        return Left('Fail while fetching data');
+      }
+    } catch (e) {
+      return Left('Error: ' + e.toString());
+    }
+  }
+
+  //--Get Order Detail by ID Order:
+  // ========================================================================
+  static Future<Either<String, OrderDetailModel>> getOrderDetail(
+      int orderId) async {
+    try {
+      final authData = await AuthLocalData.getAuthData();
+      var url = Uri.parse(BASE_URL + '/api/order/$orderId');
+      var response = await http.get(url, headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer ${authData.accessToken}',
+      });
+      if (response.statusCode == 200) {
+        return Right(OrderDetailModel.fromJson(response.body));
+      } else {
+        return Left('Fail while fetching data');
+      }
+    } catch (e) {
+      return Left('Error: ' + e.toString());
+    }
+  }
 }

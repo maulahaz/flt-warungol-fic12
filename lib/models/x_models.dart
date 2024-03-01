@@ -21,5 +21,9 @@ export 'shipping_cost_mdl.dart';
 export 'shipping_mdl.dart';
 export 'order_request_mdl.dart';
 export 'order_mdl.dart';
+export 'order_detail_mdl.dart';
+export 'history_order_mdl.dart';
+export 'transaction_mdl.dart';
+export 'track_record_mdl.dart';
 //--Payment
 export 'bank_account_mdl.dart';

@@ -1,5 +1,7 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flt_warungol_fic12/datasources/local/x_locals.dart';
+import 'package:flt_warungol_fic12/datasources/remote/x_remotes.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class FirebaseMessagingRemoteData {
@@ -36,6 +38,11 @@ class FirebaseMessagingRemoteData {
     final fcmToken = await _firebaseMessaging.getToken();
 
     print('Token is : $fcmToken');
+
+    //--If User is logged in then:
+    if (await AuthLocalData.isAuth()) {
+      AuthRemoteData.updateFCM(fcmToken!);
+    }
 
     FirebaseMessaging.instance.getInitialMessage();
     FirebaseMessaging.onMessage.listen((msg) {

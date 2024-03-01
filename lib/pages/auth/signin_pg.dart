@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 
 import '../../configs/x_configs.dart';
 import '../../datasources/local/x_locals.dart';
+import '../../datasources/remote/firebase_messaging_remote_dt.dart';
 import '../../models/x_models.dart';
 import 'x_auths.dart';
 
@@ -143,13 +144,18 @@ class _SigninPageState extends State<SigninPage> {
             ),
             const SizedBox(height: 50.0),
             BlocConsumer<AuthBloc, AuthState>(
-              listener: (context, state) {
+              listener: (context, state) async {
                 if (state is SigninValidation) {
                   MySnackbar.danger(context, 'Fail', state.value!);
                 } else if (state is AuthErrorState) {
                   MySnackbar.danger(context, 'Error', state.error!);
                 } else if (state is AuthSignedInState) {
+                  //--Save AuthData to Local:
                   AuthLocalData.saveAuthData(state.dataOutput);
+
+                  //--ReInitial to make sure FCM-ID updated in server:
+                  await FirebaseMessagingRemoteData().init();
+
                   // context.goNamed('orderDetail');
                   context.goNamed('root');
                 }

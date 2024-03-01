@@ -92,13 +92,17 @@ class _AddressPageState extends State<AddressPage> {
                 );
               } else if (state is GetAddressLoadingState) {
                 return Center(child: CircularProgressIndicator());
+              } else if (state is GetAddressInitialState) {
+                return Container(
+                    margin: EdgeInsets.only(top: 50),
+                    child: Center(child: Text('No Data')));
               } else {
                 return const SizedBox.shrink();
               }
             },
           ),
           const SizedBox(height: 40.0),
-          MyButtons.primaryOutlined(context, 'Add new address', () {
+          MyButtons.primary(context, 'Add new address', () {
             context.goNamed('addressAdd');
           }),
           const SizedBox(width: 50.0),

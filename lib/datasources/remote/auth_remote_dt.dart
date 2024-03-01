@@ -75,4 +75,27 @@ class AuthRemoteData {
       return const Left('Signout Fail');
     }
   }
+
+  //--Update FCM-ID:
+  // ========================================================================
+  static Future<Either<String, String>> updateFCM(String fcmId) async {
+    try {
+      final authData = await AuthLocalData.getAuthData();
+      var url = Uri.parse(BASE_URL + '/api/update-fcm');
+      var response = await http.post(url,
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ${authData.accessToken}',
+          },
+          body: jsonEncode({'fcm_id': fcmId}));
+      if (response.statusCode == 200) {
+        return const Right('Success');
+      } else {
+        return Left('Fail while saving data');
+      }
+    } catch (e) {
+      return Left('Error: ' + e.toString());
+    }
+  }
 }

@@ -1,5 +1,13 @@
 export 'order_detail_pg.dart';
+export 'history_order_pg.dart';
+export 'shipping_detail_pg.dart';
+export 'tracking_order_pg.dart';
 export 'parts/select_courier.dart';
 export 'parts/select_shipping.dart';
 export 'parts/shipping_selected.dart';
 export 'parts/cart_tile.dart';
+export 'parts/order_card.dart';
+export 'parts/product_tile.dart';
+export 'parts/hist_product_tile.dart';
+export 'parts/tracking_horizontal.dart';
+export 'parts/tracking_vertical.dart';

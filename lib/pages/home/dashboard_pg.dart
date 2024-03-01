@@ -1,3 +1,4 @@
+import 'package:flt_warungol_fic12/pages/order/x_orders.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -30,7 +31,7 @@ class _DashboardPageState extends State<DashboardPage> {
     //   child: Text('This Page 2'),
     // ),
     const Center(
-      child: Text('This Page 3'),
+      child: Text('This Page is under development'),
     ),
     const CartPage(),
     const ProfilePage(),

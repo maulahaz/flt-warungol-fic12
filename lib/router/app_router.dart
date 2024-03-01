@@ -10,9 +10,9 @@ import '../pages/payment/x_payments.dart';
 
 class AppRouter {
   final router = GoRouter(
-    // initialLocation: '/intro',
+    initialLocation: '/intro',
     // initialLocation: '/payment-waiting',
-    initialLocation: '/root',
+    // initialLocation: '/root',
     routes: [
       // GoRoute(
       //   name: 'paymentWaiting',
@@ -73,19 +73,22 @@ class AppRouter {
                               return PaymentWaitingPage(orderId: orderId);
                             },
                           ),
-                          // GoRoute(
-                          //   name: 'trackingOrder',
-                          //   path: 'tracking-order',
-                          //   builder: (context, state) => TrackingOrderPage(),
-                          //   routes: [
-                          //     GoRoute(
-                          //       name: 'shippingDetail',
-                          //       path: 'shipping-detail',
-                          //       builder: (context, state) =>
-                          //           const ShippingDetailPage(),
-                          //     ),
-                          //   ],
-                          // ),
+                          GoRoute(
+                            name: 'trackingOrder',
+                            path: 'tracking-order',
+                            builder: (context, state) {
+                              final orderId = state.extra as int;
+                              return TrackingOrderPage(orderId: orderId);
+                            },
+                            routes: [
+                              GoRoute(
+                                name: 'shippingDetail',
+                                path: 'shipping-detail',
+                                builder: (context, state) =>
+                                    const ShippingDetailPage(),
+                              ),
+                            ],
+                          ),
                         ])
                   ])
             ],
@@ -107,6 +110,11 @@ class AppRouter {
               ),
             ],
           ),
+          GoRoute(
+            name: 'orderList',
+            path: 'order-list',
+            builder: (context, state) => HistoryOrderPage(),
+          ),
         ],
       ),
       GoRoute(
@@ -118,6 +126,13 @@ class AppRouter {
         name: 'profile',
         path: '/profile',
         builder: (context, state) => SignupPage(),
+        routes: [
+          // GoRoute(
+          //   name: 'orderList',
+          //   path: 'order-list',
+          //   builder: (context, state) => HistoryOrderPage(),
+          // ),
+        ],
       ),
     ],
     errorPageBuilder: (context, state) {

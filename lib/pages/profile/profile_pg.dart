@@ -91,6 +91,12 @@ class ProfilePage extends StatelessWidget {
             },
           ),
           ProfileMenu(
+            label: 'My Orders',
+            onPressed: () {
+              context.goNamed('orderList');
+            },
+          ),
+          ProfileMenu(
             label: 'Help',
             onPressed: () {},
           ),

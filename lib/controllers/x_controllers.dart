@@ -21,5 +21,7 @@ export 'address/subdistrict_bloc.dart';
 export 'order/shipping_cost_bloc.dart';
 export 'order/order_bloc.dart';
 export 'order/order_status_bloc.dart';
+export 'order/history_order_bloc.dart';
+export 'order/order_detail_bloc.dart';
 //--Warung:
 export 'warung/warung_bloc.dart';
